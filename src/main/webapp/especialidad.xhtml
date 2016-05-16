@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>ERM - Especialidad</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/cie.css"/>
+    </h:head>
+    <p:growl id="messages" showDetail="true" autoUpdate="true" sticky="true" life="25" />
+    <body id="dpto">
+        
+        <!-- tabla anterior -->
+        
+        <h1>tabla anterior</h1>
+        
+        <h:form id="frmespecial">
+            <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgesp').show();" /> <br/><br/>
+            <!-- ContextMenu agrega la funcionalidad de eliminar registros -->
+            <p:contextMenu for="dtesp" style="font-size: 11px">
+                <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px">
+                    <p:confirm header="Eliminar" icon="ui-icon-close" message="¿Eliminar Registros?"/>
+                </p:menuitem>
+            </p:contextMenu>
+             <!-- Cuadro de confirmación que se mostrara cuando se desea eliminar un registro -->
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                 <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{especialidadController.eliminar()}"/>
+                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+             </p:confirmDialog> 
+            
+             <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
+            <p:contextMenu for="dtesp">
+                <p:menuitem value="Eliminar" icon="ui-icon-close">
+                    <p:confirm header="Eliminar" message="¿Eliminar Registro?" />
+                </p:menuitem>
+            </p:contextMenu>
+            <p:confirmDialog global="true" header="Eliminar Registros" severity="Alert">
+                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" update=":frmespecial:dtesp" actionListener="#{especialidadController.eliminar}"/>
+                <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
+            </p:confirmDialog>
+            <p:dataTable id="dtesp" var="esp" value="#{especialidadController.lstespecialidad}" style="font-size: 14px"
+                         rows="10"
+                         paginator="true" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" 
+                         currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                         paginatorPosition="bottom"
+                         editable="true"
+                         rowKey="#{esp.idespecialidad}"
+                         selection="#{especialidadController.selesp}"
+                         selectionMode="single">
+                <f:facet name="header">Municipios</f:facet>
+                <!-- Ajax es el evento que actualizara los datos de la tabla -->
+                <p:ajax event="rowEdit" listener="#{especialidadController.editar}" update=":frmespecial:dtesp"  />
+                <p:column headerText="Codigo" style="width: 120px" filterBy="#{esp.codEspecialidad}" filterMatchMode="content">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{esp.codEspecialidad}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{esp.codEspecialidad}" /> </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Especialidad" filterBy="#{esp.descripcion}" filterMatchMode="content" >
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{esp.descripcion}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{esp.descripcion}" /></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        
+        <p:dialog id="dlgesp" header="Registrar Especialidad" widgetVar="wdlgesp" modal="true" closeOnEscape="true" resizable="false" >
+            <h:form id="frmesp">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Codigo" for="codesp"/>
+                    <p:inputText id="codesp" value="#{especialidadController.especialidad.codEspecialidad}" required="true" requiredMessage="Codigo Requerido" />
+                    <p:outputLabel for="desesp" value="Especialidad"/>
+                    <p:inputText id="desesp" value="#{especialidadController.especialidad.descripcion}" required="true" requiredMessage="Especialidad Requerida"/>
+                    <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{especialidadController.registrar()}" oncomplete="PF('wdlgesp').hide();" update="dlgesp"/>
+                    <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgesp').hide();" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>

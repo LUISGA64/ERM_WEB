@@ -1,0 +1,55 @@
+
+
+#bdin{
+
+    background-color:floralwhite
+}
+
+#frmin{
+    position: relative;
+    width: 400px;
+    margin: 0 auto;
+    padding: 100px;
+}
+
+
+#acc{
+    position: relative;
+    margin: 0 auto;
+    border-style: groove;
+    width: 800px;
+    background-position: center;
+}
+
+#pgi{
+    background-color: rgb(215,223,232);
+}
+
+#munc{
+    position: relative;
+    top: 10px;
+    width: 300px;
+    background-position: center;
+    background-image: url('erm.jpg')
+}
+
+
+#mpio{
+    position: relative;
+    top: 100px;
+    border-style: groove;
+    width: 300px;
+    background-position: center;
+    border: aqua double
+}
+
+#frmmenu{
+    width: 800px;
+    margin: 0 auto;
+}
+
+#headmenu{
+    background-image: image("erm.jpg");
+    position: relative;
+    alignment-adjust: central
+}

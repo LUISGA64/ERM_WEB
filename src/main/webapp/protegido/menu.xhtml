@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <h:outputStylesheet library="css" name="/index.css"/>
+            <ui:define name="content">
+                <h:form id="frmmenu">
+                    <p:growl autoUpdate="true"/>
+                    <p:panelMenu id="pmenu" style="width: 300px" >
+                        <p:submenu label="Localidades">
+                            <p:menuitem value="Departamentos" outcome="departamento" icon="fa fa-fw fa-th-list"/>
+                            <p:menuitem value="Municipios" outcome="/protegido/municipio" icon="ui-icon-document"/>
+                        </p:submenu>
+                        <p:submenu label="Ocupaciones" transient="true">
+                            <p:menuitem value="Ocupaciones" outcome="/protegido/ocupacion" icon="ui-icon-document"/>
+                            <p:menuitem value="Especialidad" outcome="/protegido//especialidad" icon="ui-icon-document"/>
+                        </p:submenu>
+                        <p:submenu label="Asistencial" expanded="false">
+                            <p:menuitem value="Diagnósticos" outcome="/protegido/cie10" icon="ui-icon-power"/>
+                            <p:menuitem value="Médicos" outcome="/protegido/medico" icon="ui-icon-power"/>
+                            <p:menuitem value="Pacientes" outcome="/protegido/persona" icon="fa fa-fw fa-users"/>
+                        </p:submenu>
+                        <p:submenu label="Acceso" expanded="false">
+                            <p:menuitem value="Usuario" outcome="/protegido/usuario"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                    <br/><br/><br/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

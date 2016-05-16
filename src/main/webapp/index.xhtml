@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Menu</title>
+        <h:outputStylesheet name="css/index.css"/>
+    </h:head>
+    <h:body id="bdin">
+        <h:form id="frmin">
+            <p:messages autoUpdate="true" showDetail="true"/> 
+            <h1>Registro Médico Electronico</h1><br/><br/>
+            <p:panel id="acc">
+                <h:panelGrid id="pgi" columns="2" cellspacing="10">
+                        <p:outputLabel for="usr" value="Usuario"/>
+                        <p:inputText id="usr" value="#{indexController.usuario.usuario}" required="true" requiredMessage="Usuario Requerido" />
+                        <p:outputLabel for="pas" value="Password"/>
+                        <p:password id="pas" value="#{indexController.usuario.clave}"  required="true" requiredMessage="Password Requerido" />
+                        <h:column/>
+                        <p:commandButton icon="ui-icon-key" value="Iniciar Sesión" action="#{indexController.iniciarSesion()}"/>
+                    </h:panelGrid>
+            </p:panel>     
+        </h:form>
+    </h:body>
+</html>

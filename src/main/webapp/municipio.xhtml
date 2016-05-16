@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>ERM - Municipio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/cie.css"/>
+    </h:head>
+    <p:growl id="messages" showDetail="true" autoUpdate="true" />
+    <body id="mpio">
+        
+        
+        
+        <!--    anterior  -->
+        <h1>Plantilla Anterior</h1>
+        
+        <h:form id="frmmpio">
+            <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgmpio').show();" resetValues="wdlgmpio"/><br/><br/>
+            <p:contextMenu for="tblmpio">
+                <p:menuitem value="Eliminar" icon="ui-icon-close" action="#{municipioController.eliminar}" update=":frmmpio:tblmpio" />
+            </p:contextMenu>
+            <p:dataTable id="tblmpio"
+                         value="#{municipioController.lstmunicipio}" 
+                         var="mn" 
+                         rows="10"
+                         paginator="true" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" 
+                         currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                         paginatorPosition="bottom"
+                         editable="true"
+                         emptyMessage="No hay coincidencias"
+                         selectionMode="single"
+                         rowKey="#{mn.idMunicipio}"
+                         selection="#{municipioController.selmun}"
+                         draggableRows="true"
+                         style="font-size: 14px"
+                         >
+                <f:facet name="header">Municipios</f:facet>
+
+                <!-- Ajax es el evento que actualizara los datos de la tabla -->
+                <p:ajax event="rowEdit" listener="#{municipioController.editar}" update=":frmmpio:tblmpio" />
+
+                <p:column headerText="Codigo" style="width: 130px" filterBy="#{mn.codigoMpio}" filterMatchMode="exact">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputLabel value="#{mn.codigoMpio}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{mn.codigoMpio}"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Municipio" filterBy="#{mn.desMpio}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputLabel value="#{mn.desMpio}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{mn.desMpio}" /></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Departamento" filterBy="#{mn.iddepartamento.desDpto}" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputLabel value="#{mn.iddepartamento.desDpto}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{mn.iddepartamento}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{departamentoController.lstdepartamento}" var="dp" itemLabel="#{dp.desDpto}" itemValue="#{dp}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <p:dialog id="dlgmpio" header="Registrar Municipio" widgetVar="wdlgmpio" modal="true" closeOnEscape="true" resizable="false" showEffect="explode" style="width: 600px" >
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="6">
+                    <p:outputLabel value="Codigo" for="codmpio"/>
+                    <p:inputText id="codmpio" value="#{municipioController.municipio.codigoMpio}" required="true" requiredMessage="Codigo Requerido" />
+                    <p:outputLabel for="desmpio" value="Municipio"/>
+                    <p:inputText id="desmpio" value="#{municipioController.municipio.desMpio}" required="true" requiredMessage="Departamento Requerido"/>
+                    <p:outputLabel for="sompio" value="Departamento"/>
+                    <p:selectOneMenu id="sompio" value="#{municipioController.municipio.iddepartamento}" converter="omnifaces.SelectItemsConverter" style="width: 180px" required="true" requiredMessage="Departamento Requerido">
+                        <f:selectItem itemLabel="Seleccione.." itemValue="null" noSelectionOption="true"/>
+                        <f:selectItems value="#{departamentoController.lstdepartamento}" var="dpto" itemLabel="#{dpto.desDpto}" itemValue="#{dpto}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{municipioController.registrar()}" oncomplete="PF('wdlgmpio').hide();" update=":frmmpio:tblmpio"/>
+                    <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgmpio').hide();" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>

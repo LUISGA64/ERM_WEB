@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>ERM - Persona</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/cie.css"/>
+        
+        <!-- personas -->
+        <h1>Pagina anterior</h1>
+        
+        
+    </h:head>
+    <p:growl id="messages" showDetail="true" autoUpdate="true" />
+    <body id="bdper">
+        <h:form id="frmper">
+            <script type="text/javascript">function limpiarForm() {
+                    document.getElementById("frmper").reset();
+                }</script>
+            <p:commandButton value="Registrar" icon="ui-icon-plusthick" title="Almacenar Datos" actionListener="#{personaController.registrar()}" oncomplete="limpiarForm()" resetValues="true" />
+            <p:commandButton value="Cancelar" icon="ui-icon-close"/>
+            <p:commandButton value="Buscar" icon="ui-icon-search" onclick="PF('wdlgper').show();"/>
+            <br/><br/>
+            <p:accordionPanel id="acper" onTabShow="true" >
+                <p:tab title="Datos Personales" >
+                    <p:panel >
+                        <h:panelGrid cellpadding="5" columns="8" style="margin: 0 auto">
+                            <p:outputLabel for="nm1" value="Primer Nombre"/>
+                            <p:inputText id="nm1" value="#{personaController.persona.nombre1}" required="true" requiredMessage="Nombre Requerido" style="width: 140px"/>
+                            <p:outputLabel for="nm2" value="Segundo Nombre"/>
+                            <p:inputText id="nm2" value="#{personaController.persona.nombre2}" style="width: 135px" />
+                            <p:outputLabel for="ap1" value="Primer Apellido"/>
+                            <p:inputText id="ap1" value="#{personaController.persona.apellido1}" required="true" requiredMessage="Apellido Requerido" style="width: 140px"/>
+                            <p:outputLabel for="ap2" value="Segundo Apellido"/>
+                            <p:inputText id="ap2" value="#{personaController.persona.apellido2}" style="width: 135px"/>
+                            <p:outputLabel for="tpd" value="Tipo Documento"/>
+                            <p:selectOneMenu id="tpd" value="#{personaController.persona.tipoDoc}" converter="omnifaces.SelectItemsConverter" style="width: 135px">
+                                <f:selectItem itemLabel="Seleccione.."/>
+                                <f:selectItems value="#{tipoDocController.lsttipodoc}" var="tipodoc" itemLabel="#{tipodoc.documento}" itemValue="#{tipodoc}"  />
+                            </p:selectOneMenu>
+                            <p:outputLabel for="iden" value="Identificación"/>
+                            <p:inputText id="iden" value="#{personaController.persona.identificacion}" style="width: 135px"/>
+                            <p:outputLabel for="fecnac" value="Fecha Nacimiento"/>
+                            <p:calendar id="fecnac" title="Fecha Nacimiento" navigator="true" yearRange="c-70: c + 10" value="#{personaController.persona.fechaNac}" effect="explode" required="true" requiredMessage="Fecha Nacimiento Requerida" style="width: 80px"/>
+                            <p:outputLabel for="edad" value="Edad"/>
+                            <p:inputText id="edad" value="#{personaController.persona.edad}" required="true" requiredMessage="Edad Requerida" style="width: 100px"/>
+                            <p:outputLabel value="Medida Edad"/>
+                            <p:selectOneMenu value="#{personaController.persona.medidaEdad}" converter="omnifaces.SelectItemsConverter" style="width: 100px">
+                                <f:selectItem itemLabel="Seleccione.." itemValue="null" noSelectionOption="true" />
+                                <f:selectItems value="#{undMedidaController.lstundmedida}" var="und" itemLabel="#{und.desUndmedida}" itemValue="#{und}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel for="telpac" value="Telefóno"/>
+                            <p:inputText id="telpac" value="#{personaController.persona.telefono}" style="width: 150px"/>
+                            <p:outputLabel for="email" value="Email"/>
+                            <p:inputText id="email" value="#{personaController.persona.email}" style="width: 200px"/>
+                            <h:column/><h:column/>
+                            <p:outputLabel for="munc" value="Municipio"/>
+                            <p:selectOneMenu id="munc" value="#{personaController.persona.idMunicipio}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Municipio.." itemValue="null" noSelectionOption="true"/>
+                                <f:selectItems value="#{municipioController.lstmunicipio}" var="mpio" itemLabel="#{mpio.desMpio}" itemValue="#{mpio}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel for="sexo" value="Sexo"/>
+                            <p:selectOneMenu id="sexo" value="#{personaController.persona.sexo}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="null" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel for="ocupacion" value="Ocupación"/>
+                            <p:selectOneMenu id="ocupacion" value="#{personaController.persona.idocupacion}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Seleccione.." itemValue="null" noSelectionOption="true"/>
+                                <f:selectItems value="#{ocupacionController.lstocupacion}" var="ocp" itemLabel="#{ocp.descripcionOcp}" itemValue="#{ocp}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="Nivel Educativo" >
+                    <p:panel>
+                        <h:panelGrid columns="6" cellspacing="10" cellpadding="3">
+                            <p:outputLabel for="neduc" value="Educación Primaria"/>
+                            <p:selectOneMenu id="neduc" value="#{personaController.persona.idniv}" converter="omnifaces.SelectItemsConverter" style="width: 150px" >
+                                <f:selectItem  itemLabel="Seleccione.." itemValue="null" noSelectionOption="true"/>
+                                <f:selectItems value="#{nivelEducativoController.lstniveleducativo}" var="nived" itemLabel="#{nived.desniv}" itemValue="#{nived}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel for="inst" value="Institución"/>
+                            <p:inputText id="inst" value="#{personaController.persona.institucion}" style="width: 300px"/>
+                            <p:outputLabel for="ciud" value="Ciudad"/>
+                            <p:inputText id="ciud" value="#{personaController.persona.direc}" />
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="Persona Responsable" >
+                    <p:panel>
+                        <h:panelGrid columns="8" cellspacing="3" cellpadding="2" style="margin: 0 auto">
+                            <p:outputLabel for="pnac" value="Primer Nombre"/>
+                            <p:inputText id="pnac" value="#{personaController.persona.nmac1}" style="width: 150px"/>
+                            <p:outputLabel for="snac" value="Segundo Nombre"/>
+                            <p:inputText id="snac" value="#{personaController.persona.nmac2}" style="width: 150px"/>
+                            <p:outputLabel for="paac" value="Primer Apellido"/>
+                            <p:inputText id="paac" value="#{personaController.persona.apac1}" style="width: 150px"/>
+                            <p:outputLabel for="saac" value="Segundo Apellido"/>
+                            <p:inputText id="saac" value="#{personaController.persona.apac2}" style="width: 150px"/>
+                            <p:outputLabel for="dirac" value="Dirección"/>
+                            <p:inputText id="dirac" value="#{personaController.persona.dirac}" style="width: 150px"/>
+                            <p:outputLabel for="telac" value="Telefóno"/>
+                            <p:inputText id="telac" value="#{personaController.persona.telac}" style="width: 150px"/>
+                            <p:outputLabel for="paren" value="Parentesco"/>
+                            <p:selectOneMenu id="paren" value="#{personaController.persona.parentesco}" converter="omnifaces.SelectItemsConverter" style="width: 150px" >
+                                <f:selectItem itemLabel="Seleccione.."/>
+                                <f:selectItems value="#{parentescoController.lstparentesco}" var="prt" itemLabel="#{prt.parentesco}" itemValue="#{prt}"/>         
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </p:accordionPanel>
+        </h:form>
+        <p:dialog id="dlgper" widgetVar="wdlgper" header="Buscar Afiliado" modal="true" closeOnEscape="true" footer="Busque las personas" style="font-size: 11px; alignment-adjust: auto">
+            <h:form>
+                <p:dataTable 
+                    value="#{personaController.lstpersona}" 
+                    var="pers" widgetVar="datapers" 
+                    filteredValue="#{personaController.listpersona}" 
+                    rowKey="#{pers.idpersona}"
+                    selectionMode="single"
+                    selection="#{personaController.selpersona}"
+                    style="width: 800px"
+                    
+                    >
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <p:outputLabel value="Buscar Persona  "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('datapers').filter()" placeholder="Ingrese datos" />
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="Identificación" filterBy="#{pers.identificacion}">
+                        <h:outputText value="#{pers.identificacion}"/>
+                    </p:column>
+                    <p:column headerText="Primer Nombre" filterBy="#{pers.nombre1}" filterMatchMode="contains" width="100px">
+                        <h:outputText value="#{pers.nombre1}" />
+                    </p:column>
+                    <p:column headerText="Segundo Nombre" filterBy="#{pers.nombre2}" filterMatchMode="contains">
+                        <h:outputText value="#{pers.nombre2}"/>
+                    </p:column>
+                    <p:column headerText="Primer Apellido" filterBy="#{pers.apellido1}" filterMatchMode="contains">
+                        <h:outputText value="#{pers.apellido1}"/>
+                    </p:column>
+                    <p:column headerText="Segundo Apellido" filterBy="#{pers.apellido2}" filterMatchMode="contains">
+                        <h:outputText value="#{pers.apellido2}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>    
+        </p:dialog>
+    </body>
+</html>

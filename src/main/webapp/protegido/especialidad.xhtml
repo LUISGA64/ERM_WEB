@@ -34,7 +34,7 @@
                             <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" update=":frmespecial:dtesp" actionListener="#{especialidadController.eliminar}"/>
                             <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
                         </p:confirmDialog>
-                        <p:dataTable id="dtesp" var="esp" value="#{especialidadController.lstespecialidad}" style="font-size: 12px; width: 1100px;  "
+                        <p:dataTable id="dtesp" var="esp" value="#{especialidadController.lstespecialidad}" style="font-size: 12px"
                                      rows="10"
                                      paginator="true" 
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -72,7 +72,7 @@
                                 <p:inputText id="codesp" value="#{especialidadController.especialidad.codEspecialidad}" required="true" requiredMessage="Codigo Requerido" />
                                 <p:outputLabel for="desesp" value="Especialidad"/>
                                 <p:inputText id="desesp" value="#{especialidadController.especialidad.descripcion}" required="true" requiredMessage="Especialidad Requerida"/>
-                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{especialidadController.registrar()}" oncomplete="PF('wdlgesp').hide();" update="dlgesp"/>
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{especialidadController.registrar()}" oncomplete="PF('wdlgesp').hide();" update=":frmespecial:dtesp"/>
                                 <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgesp').hide();" />
                             </h:panelGrid>
                         </h:form>

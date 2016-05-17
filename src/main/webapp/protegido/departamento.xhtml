@@ -5,25 +5,22 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    
-    <body id="dpto">
-        
+
+    <body>
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
             <ui:define name="content">
                 <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <p:panel id="panel" header="Departamentos">
                     <h:form id="frmdpto">
-                        
-                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgdpto').show();"/> <br/><br/>
+                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgdpto').show();" resetValues="wdlgdpto"/> <br/><br/>
                         <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="tbldpto">
-                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" onclick = " confirmation . show () " action="#{departamentoController.eliminar}">
-                                <!--<p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />-->
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" onclick = "confirmation.show()">
+                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />
                             </p:menuitem>
                         </p:contextMenu>                        
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" update=":frmdpto:tbldpto" action="#{departamentoController.eliminar}"/>
+                        <p:confirmDialog  showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" action="#{departamentoController.eliminar}" update=":frmdpto:tbldpto" />
                             <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
                         </p:confirmDialog>
                         <p:dataTable 

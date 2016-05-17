@@ -31,6 +31,7 @@ public class PersonaController implements Serializable {
     private List<Persona> lstpersona;
     private Persona selpersona;
     private List<Persona> listpersona;
+    
 
     @Inject
     private Persona persona;

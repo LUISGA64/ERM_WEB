@@ -84,6 +84,7 @@ public class DepartamentoController implements Serializable{
     public void eliminar(){
         try{
             departamentoEJB.remove(depsel);
+            System.out.println("Eliminado: "+depsel);
         depsel = null;
         lstdepartamento = departamentoEJB.findAll();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Departamento", "Registro Eliminado "));

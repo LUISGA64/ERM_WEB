@@ -114,7 +114,7 @@ public class MenuController implements Serializable {
         }
     }
     
-   /* public void permisos(){
+   /*public void permisos(){
        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         
         for(Menu m : lstmenu){

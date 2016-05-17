@@ -15,8 +15,8 @@
                         <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgocp').show();" style="position: relative; left: 85px" /><br/><br/>
                         <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="tblocp">
-                            <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px">
-                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" />
+                            <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px" actionListener="#{ocupacionController.eliminar}" update=":frmocp:tblocp">
+                               <!-- <p:confirm header="Eliminar" message="¿Eliminar Registro?" />-->
                             </p:menuitem>
                         </p:contextMenu>
                         <p:confirmDialog global="true" header="Eliminar Registros" hideEffect="Fade" showEffect="Fade">
@@ -36,7 +36,7 @@
                                      rowKey="#{oc.idocupacion}"
                                      selectionMode="single"
                                      selection="#{ocupacionController.ocsel}"
-                                     style="font-size: 12px; width: 900px; position: 0 auto"
+                                     style="font-size: 12px"
                                      >
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{ocupacionController.editar}" update=":frmocp:tblocp" />

@@ -13,12 +13,17 @@
                 <p:panel id="panel" header="Diagnósticos Cie10">
 
                     <h:form id="frmcie10">
-                        <p:commandButton value="Nuevo" icon="fa fa-fw fa-plus-circle" oncomplete="PF('wdlgcie10').show();" />
-                        <br/><br/>
+                        
+                        <p:contextMenu for="tblcie10">
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" action="#{cie10Controller.eliminar}" update=":frmcie10:tblcie10" />
+                        </p:contextMenu>
                         <p:dataTable
                             id="tblcie10"
                             value="#{cie10Controller.lstcie10}"
                             var="c1"
+                            rowKey="#{c1.idcie10}"
+                            selection="#{cie10Controller.selcie10}"
+                            selectionMode="single"
                             rows="10"
                             paginator="true"
                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -28,6 +33,10 @@
                             paginatorPosition="bottom"
                             emptyMessage="No hay coincidencias"
                             style="font-size: 14px">
+                            
+                            <f:facet name="header">
+                                <p:commandButton value="Nuevo" icon="fa fa-fw fa-plus-circle" oncomplete="PF('wdlgcie10').show();" style="margin-left: -1200px; color: #ece3a5; font-size: 15px" />
+                            </f:facet>
 
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{cie10Controller.leer}" update=":frmcie10:tblcie10" />
@@ -47,7 +56,7 @@
                                         <h:outputText value="#{c1.desCie10}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{c1.desCie10}"/>
+                                        <p:inputText value="#{c1.desCie10}" style="width: 400px"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>

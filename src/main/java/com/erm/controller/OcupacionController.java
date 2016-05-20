@@ -15,23 +15,22 @@ import org.primefaces.event.RowEditEvent;
 
 @Named
 @ViewScoped
-public class OcupacionController implements Serializable{
-    
+public class OcupacionController implements Serializable {
+
     @EJB
     private OcupacionFacadeLocal ocupacionEJB;
     private List<Ocupacion> lstocupacion;
     private Ocupacion ocsel;
-    
+
     @Inject
     private Ocupacion ocupacion;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         lstocupacion = ocupacionEJB.findAll();
     }
-    
-    // Constructores 
 
+    // Constructores 
     public List<Ocupacion> getLstocupacion() {
         return lstocupacion;
     }
@@ -55,19 +54,18 @@ public class OcupacionController implements Serializable{
     public void setOcupacion(Ocupacion ocupacion) {
         this.ocupacion = ocupacion;
     }
-    
-    
-    public void registrar(){
-        try{
+
+    public void registrar() {
+        try {
             ocupacionEJB.create(ocupacion);
             lstocupacion = ocupacionEJB.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ocupación", "Registro Exitoso.  "));
-        }catch(Exception e){
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocupación", "Registro Falló.  "));
         }
     }
-    
-    public void editar(RowEditEvent event){
+
+    public void editar(RowEditEvent event) {
         Ocupacion oc1 = (Ocupacion) event.getObject();
         Ocupacion oc2 = ocupacionEJB.find(oc1.getIdocupacion());
         oc2.setCodigoOcp(oc1.getCodigoOcp());
@@ -76,18 +74,15 @@ public class OcupacionController implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ocupación", "Registro Modificado."));
     }
 
-    public void eliminar(){
-        try
-        {
-        ocupacionEJB.remove(ocsel);
-        ocsel = null;
-        lstocupacion = ocupacionEJB.findAll();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM - Ocupación", "Registro Eliminado"));
-        System.out.println("Seleccionado: "+ocsel);
-        }
-        catch(Exception e)
-        {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM - Ocupación", "Registro No Eliminado "+e));
+    public void eliminar() {
+        try {
+            ocupacionEJB.remove(ocsel);
+            ocsel = null;
+            lstocupacion = ocupacionEJB.findAll();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM - Ocupación", "Registro Eliminado"));
+            System.out.println("Seleccionado: " + ocsel);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM - Ocupación", "Registro No Eliminado " + e));
         }
     }
 }

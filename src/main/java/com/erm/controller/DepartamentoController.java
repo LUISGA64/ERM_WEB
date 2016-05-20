@@ -73,7 +73,6 @@ public class DepartamentoController implements Serializable{
         dp2.setCodigoDpto(dp1.getCodigoDpto());
         dp2.setDesDpto(dp1.getDesDpto());
         departamentoEJB.edit(dp2);
-        System.out.println("Seleccionado");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Departamento Modificado."));
     }
     
@@ -84,11 +83,12 @@ public class DepartamentoController implements Serializable{
     public void eliminar(){
         try{
             departamentoEJB.remove(depsel);
-            System.out.println("Eliminado: "+depsel);
+            System.out.println("com.erm.controller.DepartamentoController.eliminar()");
+            System.out.println("Eliminado: "+depsel.getDesDpto()+"  Codigo:"+depsel.getCodigoDpto());
         depsel = null;
         lstdepartamento = departamentoEJB.findAll();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Departamento", "Registro Eliminado "));
-        System.out.println("Seleccionado: "+departamento.getIddepartamento());}
+        }
         catch(Exception e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Departamento", "Registro No Eliminado "+e));
         }

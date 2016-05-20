@@ -49,4 +49,12 @@ public class IndexController implements Serializable {
         }
         return redireccion;
     }
+    
+    public void errorUsuario() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registre Usuario"));
+    }
+    
+    public void errorPass() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registre Password"));
+    }
 }

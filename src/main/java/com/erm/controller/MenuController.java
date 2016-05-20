@@ -10,9 +10,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
 @Named
@@ -114,11 +117,11 @@ public class MenuController implements Serializable {
         }
     }
     
-   /*public void permisos(){
+   public void permisos(){
        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         
         for(Menu m : lstmenu){
-            if(m.getTipMenu().equals("S") && rolmenu.getIdrol().equals(us.getIdrol() ){
+            if(m.getTipMenu().equals("S")){
                 DefaultSubMenu firstSubmenu = new DefaultSubMenu(m.getDetMenu());
                 System.out.println("*** menu: "+m.getDetMenu());
                 for(Menu i : lstmenu){
@@ -146,6 +149,7 @@ public class MenuController implements Serializable {
            if(m.getIdMenu().getTipMenu().equals("S") && m.getIdrol().getRol().equals(us.getIdrol())){
                DefaultSubMenu firstSubmenu = new DefaultSubMenu(m.getIdMenu().getDetMenu());
            }
-       }*/
+       }
     }
+}
 

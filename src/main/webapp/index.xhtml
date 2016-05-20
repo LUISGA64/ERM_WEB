@@ -8,17 +8,20 @@
         <h:outputStylesheet name="css/index.css"/>
     </h:head>
     <h:body id="bdin">
+        <!--<img src="resources/images/erm.jpg" style="width: 650px; height: 650px"/>-->
         <h:form id="frmin">
+            
             <p:messages autoUpdate="true" showDetail="true"/> 
             <h1>Registro Médico Electronico</h1><br/><br/>
             <p:panel id="acc">
+                
                 <h:panelGrid id="pgi" columns="2" cellspacing="10">
-                        <p:outputLabel for="usr" value="Usuario"/>
-                        <p:inputText id="usr" value="#{indexController.usuario.usuario}" required="true" requiredMessage="Usuario Requerido" />
-                        <p:outputLabel for="pas" value="Password"/>
-                        <p:password id="pas" value="#{indexController.usuario.clave}"  required="true" requiredMessage="Password Requerido" />
+                        <p:outputLabel for="usr"/>
+                        <p:inputText id="usr" value="#{indexController.usuario.usuario}" required="true" requiredMessage="#{indexController.errorUsuario()}" placeholder="Usuario" />
+                        <p:outputLabel for="pas"/>
+                        <p:password id="pas" value="#{indexController.usuario.clave}"  required="true" requiredMessage="#{indexController.errorPass()}" placeholder="Password" />
                         <h:column/>
-                        <p:commandButton icon="ui-icon-key" value="Iniciar Sesión" action="#{indexController.iniciarSesion()}"/>
+                        <p:commandButton icon="ui-icon-key" value="Iniciar Sesión" action="#{indexController.iniciarSesion}"/>
                     </h:panelGrid>
             </p:panel>     
         </h:form>

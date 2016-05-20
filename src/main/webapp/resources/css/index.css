@@ -1,15 +1,17 @@
 
 
 #bdin{
-
-    background-color:floralwhite
+    /*/background-color:floralwhite*/
+    background-color:rgb(130,170,120)
 }
 
 #frmin{
     position: relative;
+    
     width: 400px;
     margin: 0 auto;
     padding: 100px;
+    
 }
 
 
@@ -19,10 +21,11 @@
     border-style: groove;
     width: 800px;
     background-position: center;
+    
 }
 
 #pgi{
-    background-color: rgb(215,223,232);
+    background-color: rgb(215,223,250);
 }
 
 #munc{
@@ -52,4 +55,8 @@
     background-image: image("erm.jpg");
     position: relative;
     alignment-adjust: central
+}
+
+h1{
+    color: #045491
 }

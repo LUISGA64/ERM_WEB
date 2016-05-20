@@ -12,22 +12,22 @@
                 <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <p:panel id="panel" header="Departamentos">
                     <h:form id="frmdpto">
-                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgdpto').show();" resetValues="wdlgdpto"/> <br/><br/>
+                        
                         <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="tbldpto">
-                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" onclick = "confirmation.show()">
-                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" action="#{departamentoController.eliminar}" update=":frmdpto:tbldpto">
+                                <!--<p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />-->
                             </p:menuitem>
                         </p:contextMenu>                        
                         <p:confirmDialog  showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" action="#{departamentoController.eliminar}" update=":frmdpto:tbldpto" />
+                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
                             <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
                         </p:confirmDialog>
                         <p:dataTable 
                             id="tbldpto" 
                             value="#{departamentoController.lstdepartamento}" 
                             var="dp" 
-                            rowKey="#{dp.iddepartamento }"
+                            rowKey="#{dp.iddepartamento}"
                             selection="#{departamentoController.depsel}"
                             selectionMode="single"
                             rows="10"
@@ -42,7 +42,9 @@
                             widgetVar="dpto"
                             style="font-size: 12px">
 
-                            <f:facet name="header">Departamentos</f:facet>
+                            <f:facet name="header">
+                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgdpto').show();" resetValues="wdlgdpto" style="margin-left: -1200px; color: #ece3a5; font-size: 15px; font: bold "/>
+                            </f:facet>
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{departamentoController.leer}" update=":frmdpto:tbldpto" />
                             <p:column headerText="Codigo" style="width:70px" filterBy="#{dp.codigoDpto}" filterMatchMode="exact">

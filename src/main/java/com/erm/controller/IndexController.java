@@ -40,21 +40,27 @@ public class IndexController implements Serializable {
             if (us != null){
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
                 redireccion = "/protegido/menu?faces-redirect=true";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ",""+usuario.getIdrol().getRol()));
+                this.bienvenido();
             }else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario", "Usuario Incorrecto."));
-            }
-            
+            }   
         } catch (Exception e) {
             //
         }
         return redireccion;
     }
     
+    /*Mesajes*/
     public void errorUsuario() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registre Usuario"));
     }
     
     public void errorPass() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registre Password"));
+    }
+    
+    public void bienvenido(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ",""+usuario.getIdrol().getRol()));
     }
 }

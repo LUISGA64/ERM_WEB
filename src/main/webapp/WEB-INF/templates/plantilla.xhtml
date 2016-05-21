@@ -8,8 +8,8 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-       <!-- <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>-->
+        <!-- <h:outputStylesheet name="./css/default.css"/>
+         <h:outputStylesheet name="./css/cssLayout.css"/>-->
         <title>Facelets Template</title>
         <f:event type="preRenderView" listener="#{plantillaController.verificarSesion()}" />
     </h:head>
@@ -19,7 +19,25 @@
         <div id="top">
             <ui:insert name="top">
                 <h:form>
-                    <p:menubar model="#{rolmenuController.model}"/>
+                    <p:menubar transient="true" >
+                        <p:submenu label="Localidad" icon="fa fa-fw fa-paper-plane-o">
+                            <p:menuitem value="Departamento" outcome="departamento" />
+                            <p:menuitem value="Municipios" outcome="municipio" />
+                        </p:submenu>
+                        <p:submenu label="Ocupaciones" icon="fa fa-fw fa-bar-chart-o">
+                            <p:menuitem value="Especialidades" outcome="especialidad"/>
+                            <p:menuitem value="Ocupaciones" outcome="/protegido/ocupacion"/>
+                        </p:submenu>
+                        <p:submenu label="Asistencial" icon="fa fa-fw fa-ambulance">
+                            <p:menuitem value="Diagnósticos" outcome="/protegido/cie10"/>
+                            <p:menuitem value="Médicos" outcome="/protegido/medico"/>
+                            <p:menuitem value="Pacientes" outcome="/protegido/persona"/>
+                            <p:menuitem value="Consulta" outcome="/asistencial/consultaExterna"/>
+                        </p:submenu>
+                        <p:submenu label="Acceso" icon="fa fa-fw fa-key" expanded="true" >
+                            <p:menuitem value="Usuario" outcome="/protegido/usuario"/>
+                        </p:submenu>
+                    </p:menubar>
                 </h:form><br/>
             </ui:insert>
         </div>

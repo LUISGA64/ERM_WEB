@@ -7,23 +7,31 @@
         <title>Menu</title>
         <h:outputStylesheet name="css/index.css"/>
     </h:head>
-    <h:body id="bdin">
-        <!--<img src="resources/images/erm.jpg" style="width: 650px; height: 650px"/>-->
+    <h:body id="bdin" style="background-image: url(resources/images/erm.jpg);background-size: 100%; align-content: stretch">
         <h:form id="frmin">
-            
-            <p:messages autoUpdate="true" showDetail="true"/> 
-            <h1>Registro Médico Electronico</h1><br/><br/>
-            <p:panel id="acc">
-                
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /><br/><br/>
+            <center><p><h1>Registro Médico Electronico</h1></p></center>
+            <center><p:panel id="acc" header="Login" style="width: 400px;" >
                 <h:panelGrid id="pgi" columns="2" cellspacing="10">
                         <p:outputLabel for="usr"/>
-                        <p:inputText id="usr" value="#{indexController.usuario.usuario}" required="true" requiredMessage="#{indexController.errorUsuario()}" placeholder="Usuario" />
+                        <p:inputText id="usr" value="#{indexController.usuario.usuario}" required="true" requiredMessage="#{indexController.errorUsuario()}" placeholder="Usuario"/>
                         <p:outputLabel for="pas"/>
                         <p:password id="pas" value="#{indexController.usuario.clave}"  required="true" requiredMessage="#{indexController.errorPass()}" placeholder="Password" />
                         <h:column/>
-                        <p:commandButton icon="ui-icon-key" value="Iniciar Sesión" action="#{indexController.iniciarSesion}"/>
+                        <p:commandButton icon="ui-icon-key" value="Iniciar Sesión" action="#{indexController.iniciarSesion}" update=":frmin:messages"/>
                     </h:panelGrid>
-            </p:panel>     
+            </p:panel></center>
         </h:form>
     </h:body>
+    <script type="text/javascript">
+  //<![CDATA[
+  function manejarLogin(xhr, status, args) {
+    if (!args.validationFailed && args.estaLogeado) {
+      setTimeout(function() {
+        window.location = args.view;
+      }, 500);
+    }
+  }
+//]]>
+</script>
 </html>

@@ -1,5 +1,4 @@
 
-
 #bdin{
     
     border: 1px activeborder;
@@ -40,8 +39,8 @@
 }
 
 #frmmenu{
-    width: 800px;
-    margin: 0 auto;
+    background-image: url(../resources/images/simple-blue-ii.jpg);
+    color: #D20005
 }
 
 #headmenu{
@@ -54,4 +53,8 @@ h1{
     color: #045491;
     padding-top: 60px;
     font-size: 38px
+}
+
+#tlbund{
+    background-color: #D20005
 }

@@ -6,7 +6,7 @@
     </context-param>
     <context-param>  
         <param-name>primefaces.THEME</param-name>  
-        <param-value>start</param-value>  
+        <param-value>bootstrap</param-value>  
     </context-param>
     <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
@@ -26,8 +26,14 @@
         <session-timeout>
             30
         </session-timeout>
+        
     </session-config>
     <welcome-file-list>
         <welcome-file>index.erm</welcome-file>
     </welcome-file-list>
+    <!--<manage-bean>
+        <manage-bean-name>IndexController</manage-bean-name>
+        <manage-bean-class>com.erm.controller.IndexController</manage-bean-class>
+        <manage-bean-scope>session</manage-bean-scope>
+    </manage-bean>-->
 </web-app>

@@ -15,8 +15,8 @@
                         <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgesp').show();"  /> <br/><br/>
                         <!-- ContextMenu agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="dtesp" style="font-size: 11px">
-                            <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px">
-                                <p:confirm header="Eliminar" icon="ui-icon-close" message="¿Eliminar Registros?"/>
+                            <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px" update="dtesp">
+                                <p:confirm header="Eliminar" icon="ui-icon-close" message="¿Eliminar Registros?" />
                             </p:menuitem>
                         </p:contextMenu>
                         <!-- Cuadro de confirmación que se mostrara cuando se desea eliminar un registro -->
@@ -24,17 +24,7 @@
                             <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{especialidadController.eliminar()}"/>
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
                         </p:confirmDialog> 
-                        <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
-                        <p:contextMenu for="dtesp">
-                            <p:menuitem value="Eliminar" icon="ui-icon-close">
-                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" />
-                            </p:menuitem>
-                        </p:contextMenu>
-                        <p:confirmDialog global="true" header="Eliminar Registros" severity="Alert">
-                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" update=":frmespecial:dtesp" actionListener="#{especialidadController.eliminar}"/>
-                            <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
-                        </p:confirmDialog>
-                        <p:dataTable id="dtesp" var="esp" value="#{especialidadController.lstespecialidad}" style="font-size: 12px"
+                        <p:dataTable id="dtesp" var="esp" value="#{especialidadController.lstespecialidad}" style="font-size: 16px"
                                      rows="10"
                                      paginator="true" 
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

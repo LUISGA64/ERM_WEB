@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 @Named
 @ViewScoped
@@ -34,33 +35,53 @@ public class IndexController implements Serializable {
 
     public String iniciarSesion() {
         Usuario us;
-        String redireccion = null;
+        String redirect = null;
+        boolean logeado = false;
+        FacesMessage msg = null;
         try {
-           us = usuarioEJB.iniciarSesion(usuario);
-            if (us != null){
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
-                redireccion = "/protegido/menu?faces-redirect=true";
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ",""+usuario.getIdrol().getRol()));
-                this.bienvenido();
-            }else{
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario", "Usuario Incorrecto."));
-            }   
+            us = usuarioEJB.iniciarSesion(usuario);
+            if (us != null) {
+                if (us.getIdrol().getIdRol() == 1) {
+                    RequestContext context = RequestContext.getCurrentInstance();
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
+                    redirect = "/protegido/menu?faces-redirect=true";
+                    System.out.println("\n" + "Usuario: " + us.getUsuario() + "\n" + "Rol: " + us.getIdrol().getRol() + "\n" + "Estado: " + us.getEstado());
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "" + us.getIdrol().getRol()));
+                }
+                if (us.getIdrol().getIdRol() == 2) {
+                    RequestContext context = RequestContext.getCurrentInstance();
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
+                    redirect = "/asistencial/consultaExterna?faces-redirect=true";
+                    System.out.println("\n" + "Usuario: " + us.getUsuario() + "\n" + "Rol: " + us.getIdrol().getRol() + "\n" + "Estado: " + us.getEstado());
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "" + us.getIdrol().getRol()));
+                }
+                logeado = true;
+
+            } else {
+                logeado = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Login Incorrecto "));
+            }
         } catch (Exception e) {
-            //
+            // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Login Incorrecto " + e));
         }
-        return redireccion;
+        return redirect;
     }
-    
+
+    public void resetInput() {
+
+    }
+
     /*Mesajes*/
     public void errorUsuario() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registre Usuario"));
     }
-    
+
     public void errorPass() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registre Password"));
     }
-    
-    public void bienvenido(){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ",""+usuario.getIdrol().getRol()));
+
+    public void bienvenido() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", "" + usuario.getIdrol().getRol()));
     }
+
 }

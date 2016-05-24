@@ -10,26 +10,18 @@
         <h:outputStylesheet name="css/index.css"/>
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
             <ui:define name="content">
-
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <p:panel id="pundmed" header="Unidad Medida Medicamentos">
                     <h:form id="frmundmed">
-                        <p:contextMenu for="tblundmed">
-                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" >
-                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" />
-                            </p:menuitem>
-                        </p:contextMenu>
-
-                        <!-- Cuadro de dialogo de confirmacion -->
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{especialidadController.eliminar()}"/>
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-                        </p:confirmDialog>
-
                         <p:toolbar id="tlbund" style="background-color: #D20005">
                             <f:facet name="left" rendered="true">
-                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" style="font-size: 16px;animation: linear" />
+                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" style="font-size: 16px" oncomplete="PF('wdlgundmed').show();" />
                             </f:facet>
                         </p:toolbar>
+                        <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros  -->
+                        <p:contextMenu for="tblundmed">
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" actionListener="#{unidadMedidaController.eliminar}" update=":frmundmed:tblundmed" />
+                        </p:contextMenu>
                         <p:dataTable
                             currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
                             draggableRows="true"
@@ -69,6 +61,22 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                    <!-- Cuadro de dialogo para el registro de una nueva unidad de medida  -->
+                    <p:dialog id="dlgundmed" header="Unidad Medida" widgetVar="wdlgundmed" modal="true" closeOnEscape="true" resizable="false" showEffect="explode">
+                        <h:form>
+                            <h:panelGrid columns="2" cellpadding="6">
+                                <p:outputLabel value="Codigo" for="codund"/>
+                                <p:inputText id="codund" value="#{unidadMedidaController.unidadmedida.codUnd}" required="true" requiredMessage="Codigo Requerido" />
+                                <p:outputLabel for="desund" value="Unidad Medida"/>
+                                <p:inputText id="desund" value="#{unidadMedidaController.unidadmedida.desUnd}" required="true" requiredMessage="Especialidad Requerida"/>
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{unidadMedidaController.registrar()}" oncomplete="PF('wdlgundmed').hide();" update=":frmundmed:tblundmed" >
+                                    <p:ajax resetValues="true" update=":frmundmed:tblundmed" />
+                                </p:commandButton>
+                                <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgundmed').hide();" resetValues="true" />
+                            </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+
                 </p:panel>
             </ui:define>
         </ui:composition>

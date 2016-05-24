@@ -23,7 +23,8 @@ public class Cie10Controller implements Serializable{
     @EJB
     private Cie10FacadeLocal cie10EJB;
     private List<Cie10> lstcie10;
-    Cie10 cie;
+    private Cie10 selcie10;
+    
 
     @Inject
     private Cie10 cie10;
@@ -42,20 +43,20 @@ public class Cie10Controller implements Serializable{
         this.lstcie10 = lstcie10;
     }
 
-    public Cie10 getCie() {
-        return cie;
-    }
-
-    public void setCie(Cie10 cie) {
-        this.cie = cie;
-    }
-
     public Cie10 getCie10() {
         return cie10;
     }
 
     public void setCie10(Cie10 cie10) {
         this.cie10 = cie10;
+    }
+
+    public Cie10 getSelcie10() {
+        return selcie10;
+    }
+
+    public void setSelcie10(Cie10 selcie10) {
+        this.selcie10 = selcie10;
     }
 
     public void registrar(){
@@ -89,4 +90,16 @@ public class Cie10Controller implements Serializable{
     context.setViewRoot(viewRoot);
     context.renderResponse(); 
  }
+    
+    public void eliminar(){
+        try{
+            cie10EJB.remove(selcie10);
+            System.out.println("com.erm.controller.Cie10Controller.eliminar()");
+            selcie10 = null;
+            lstcie10 = cie10EJB.findAll();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Diagnóstico", "Registro Eliminado "));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERM- Diagnóstico", "Registro No Eliminado "));
+        }
+    }
 }

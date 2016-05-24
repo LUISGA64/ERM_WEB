@@ -8,27 +8,9 @@
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
             <h:outputStylesheet library="css" name="/index.css"/>
             <ui:define name="content">
-                <h:form id="frmmenu">
+                <h:form id="frmmenu" >
                     <p:growl autoUpdate="true"/>
-                    <p:panelMenu id="pmenu" style="width: 300px" >
-                        <p:submenu label="Localidades">
-                            <p:menuitem value="Departamentos" outcome="departamento" icon="fa fa-fw fa-th-list"/>
-                            <p:menuitem value="Municipios" outcome="/protegido/municipio" icon="ui-icon-document"/>
-                        </p:submenu>
-                        <p:submenu label="Ocupaciones" transient="true">
-                            <p:menuitem value="Ocupaciones" outcome="/protegido/ocupacion" icon="ui-icon-document"/>
-                            <p:menuitem value="Especialidad" outcome="/protegido//especialidad" icon="ui-icon-document"/>
-                        </p:submenu>
-                        <p:submenu label="Asistencial" expanded="false">
-                            <p:menuitem value="Diagnósticos" outcome="/protegido/cie10" icon="ui-icon-power"/>
-                            <p:menuitem value="Médicos" outcome="/protegido/medico" icon="ui-icon-power"/>
-                            <p:menuitem value="Pacientes" outcome="/protegido/persona" icon="fa fa-fw fa-users"/>
-                        </p:submenu>
-                        <p:submenu label="Acceso" expanded="false">
-                            <p:menuitem value="Usuario" outcome="/protegido/usuario"/>
-                        </p:submenu>
-                    </p:panelMenu>
-                    <br/><br/><br/>
+
                 </h:form>
             </ui:define>
         </ui:composition>

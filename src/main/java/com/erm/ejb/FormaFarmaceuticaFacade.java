@@ -1,13 +1,13 @@
 package com.erm.ejb;
 
-import com.erm.model.Medicamentos;
+import com.erm.model.FormaFarmaceutica;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 
 @Stateless
-public class MedicamentosFacade extends AbstractFacade<Medicamentos> implements MedicamentosFacadeLocal {
+public class FormaFarmaceuticaFacade extends AbstractFacade<FormaFarmaceutica> implements FormaFarmaceuticaFacadeLocal {
 
     @PersistenceContext(unitName = "ermPu")
     private EntityManager em;
@@ -17,8 +17,8 @@ public class MedicamentosFacade extends AbstractFacade<Medicamentos> implements 
         return em;
     }
 
-    public MedicamentosFacade() {
-        super(Medicamentos.class);
+    public FormaFarmaceuticaFacade() {
+        super(FormaFarmaceutica.class);
     }
 
 }

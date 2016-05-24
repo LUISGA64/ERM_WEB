@@ -10,17 +10,16 @@
 
             <ui:define name="content">
                 <p:growl id="messages" showDetail="true" autoUpdate="true" />
-                <center><p:panel id="panel" header="Ocupaciones" style="width: 1100px; text-align: left">
+                <p:panel id="panel" header="Ocupaciones">
                     <h:form id="frmocp">
-                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgocp').show();" style="position: relative; left: 85px" /><br/><br/>
                         <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="tblocp">
-                            <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px">
-                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" />
+                            <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px" actionListener="#{ocupacionController.eliminar}" update=":frmocp:tblocp">
+                               <!-- <p:confirm header="Eliminar" message="¿Eliminar Registro?" />-->
                             </p:menuitem>
                         </p:contextMenu>
                         <p:confirmDialog global="true" header="Eliminar Registros" hideEffect="Fade" showEffect="Fade">
-                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" actionListener="#{ocupacionController.eliminar}" update=":frmocp:tblocp"/>
+                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" />
                             <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button" immediate="true"/>
                         </p:confirmDialog>
                         <center><p:dataTable id="tblocp"
@@ -36,8 +35,12 @@
                                      rowKey="#{oc.idocupacion}"
                                      selectionMode="single"
                                      selection="#{ocupacionController.ocsel}"
-                                     style="font-size: 12px; width: 900px; position: 0 auto"
+                                     style="font-size: 15px"
+                                     sortBy="#{oc.idocupacion}"
                                      >
+                                <f:facet name="header">
+                                    <p:commandButton value="Nuevo" icon="fa fa-fw fa-plus-circle" oncomplete="PF('wdlgocp').show();" style="margin-left: -1200px; color: #ece3a5; font-size: 15px" />
+                                </f:facet>
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{ocupacionController.editar}" update=":frmocp:tblocp" />
                             <p:column headerText="Codigo" style="width: 140px" filterBy="#{oc.codigoOcp}" filterMatchMode="exact">
@@ -77,7 +80,7 @@
                             </h:panelGrid>
                         </h:form>
                     </p:dialog>
-                </p:panel></center>
+                </p:panel>
             </ui:define>
         </ui:composition>
     </body>

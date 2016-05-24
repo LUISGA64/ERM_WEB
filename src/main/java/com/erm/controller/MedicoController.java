@@ -113,4 +113,6 @@ public class MedicoController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM - Medico", "Registro Eliminado"));
         System.out.println("Seleccionado: " + medico.getIdeMed());
     }
+    
+    
 }

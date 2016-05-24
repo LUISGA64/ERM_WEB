@@ -42,16 +42,22 @@ public class Ocupacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "idocupacion")
     private Integer idocupacion;
+    
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "codigo_ocp")
     private String codigoOcp;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "descripcion_ocp")
     private String descripcionOcp;
+    
+    
+    
     @OneToMany(mappedBy = "idocupacion")
     private List<Persona> personaList;
 

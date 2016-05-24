@@ -1,28 +1,23 @@
 
-
 #bdin{
-
-    background-color:floralwhite
+    
+    border: 1px activeborder;
+    filter: alpha(opacity=60)
+    
 }
 
+/*Formulario que contiene el panel*/
 #frmin{
-    position: relative;
-    width: 400px;
-    margin: 0 auto;
-    padding: 100px;
+        
 }
 
-
+/*Panel Login*/
 #acc{
-    position: relative;
-    margin: 0 auto;
-    border-style: groove;
-    width: 800px;
-    background-position: center;
+   font-size: 34px
 }
 
 #pgi{
-    background-color: rgb(215,223,232);
+    background-color: #D20005
 }
 
 #munc{
@@ -44,12 +39,22 @@
 }
 
 #frmmenu{
-    width: 800px;
-    margin: 0 auto;
+    background-image: url(../resources/images/simple-blue-ii.jpg);
+    color: #D20005
 }
 
 #headmenu{
-    background-image: image("erm.jpg");
+    
     position: relative;
     alignment-adjust: central
+}
+
+h1{
+    color: #045491;
+    padding-top: 60px;
+    font-size: 38px
+}
+
+#tlbund{
+    background-color: #D20005
 }

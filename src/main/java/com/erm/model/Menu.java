@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.erm.model;
 
 import java.io.Serializable;
@@ -137,10 +131,7 @@ public class Menu implements Serializable {
             return false;
         }
         Menu other = (Menu) object;
-        if ((this.idmenu == null && other.idmenu != null) || (this.idmenu != null && !this.idmenu.equals(other.idmenu))) {
-            return false;
-        }
-        return true;
+        return !((this.idmenu == null && other.idmenu != null) || (this.idmenu != null && !this.idmenu.equals(other.idmenu)));
     }
 
     @Override

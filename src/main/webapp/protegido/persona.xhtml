@@ -23,7 +23,7 @@
                         <p:tab title="Datos Personales" >
                             <p:panel style="font-size: 12px" >
                                 <h:panelGrid cellpadding="5" columns="8" style="margin: 0 auto">
-                                    <p:outputLabel for="nm1" value="Primer Nombre"/>
+                                    <p:outputLabel for="nm1" value="Primer Nombre" />
                                     <p:inputText id="nm1" value="#{personaController.persona.nombre1}" required="true" requiredMessage="Nombre Requerido" style="width: 150px"/>
                                     <p:outputLabel for="nm2" value="Segundo Nombre"/>
                                     <p:inputText id="nm2" value="#{personaController.persona.nombre2}" style="width: 150px" />
@@ -120,7 +120,6 @@
                             selectionMode="single"
                             selection="#{personaController.selpersona}"
                             style="width: 800px"
-
                             >
                             <f:facet name="header">
                                 <p:outputPanel>

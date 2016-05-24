@@ -48,9 +48,15 @@ public class Rol implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "rol")
     private String rol;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "codigo")
+    private String codigo;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idrol")
     private List<RolMenu> rolMenuList;
-
     public Rol() {
     }
 
@@ -77,6 +83,14 @@ public class Rol implements Serializable {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     @XmlTransient

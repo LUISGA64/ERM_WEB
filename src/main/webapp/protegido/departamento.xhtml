@@ -5,32 +5,36 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    
-    <body id="dpto">
-        
+
+    <body>
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
             <ui:define name="content">
                 <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <p:panel id="panel" header="Departamentos">
                     <h:form id="frmdpto">
-                        
-                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgdpto').show();"/> <br/><br/>
+                        <p:toolbar style="background-color: yellowgreen; margin-top: 5px; margin-bottom: 10px">
+                            <f:facet name="left">
+                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgdpto').show();" resetValues="wdlgdpto" style="font-size: 16px"/>
+                            </f:facet>
+                        </p:toolbar>
                         <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="tbldpto">
-                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" onclick = " confirmation . show () " action="#{departamentoController.eliminar}">
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px">
+                                <p:commandButton value="prueba">
+                                    <p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />
+                                </p:commandButton>
                                 <!--<p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />-->
                             </p:menuitem>
                         </p:contextMenu>                        
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" update=":frmdpto:tbldpto" action="#{departamentoController.eliminar}"/>
+                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" action="#{departamentoController.eliminar}" update=":frmdpto:tbldpto" />
                             <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
                         </p:confirmDialog>
                         <p:dataTable 
                             id="tbldpto" 
                             value="#{departamentoController.lstdepartamento}" 
                             var="dp" 
-                            rowKey="#{dp.iddepartamento }"
+                            rowKey="#{dp.iddepartamento}"
                             selection="#{departamentoController.depsel}"
                             selectionMode="single"
                             rows="10"
@@ -43,9 +47,7 @@
                             emptyMessage="Sin Registros"
                             editable="true"
                             widgetVar="dpto"
-                            style="font-size: 12px">
-
-                            <f:facet name="header">Departamentos</f:facet>
+                            >
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{departamentoController.leer}" update=":frmdpto:tbldpto" />
                             <p:column headerText="Codigo" style="width:70px" filterBy="#{dp.codigoDpto}" filterMatchMode="exact">
@@ -54,7 +56,7 @@
                                     <f:facet name="input"><p:inputText value="#{dp.codigoDpto}" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
-                            <p:column headerText="Departamento" style="width:400px" filterBy="#{dp.desDpto}" filterMatchMode="contains">
+                            <p:column headerText="Departamento" style="width:450px" filterBy="#{dp.desDpto}" filterMatchMode="contains">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{dp.desDpto}" />
@@ -70,14 +72,16 @@
                         </p:dataTable>
                     </h:form >
                     <p:dialog id="dlgdpto" header="Registrar Departamento" widgetVar="wdlgdpto" modal="true" closeOnEscape="true" resizable="false" showEffect="explode" >
-                        <h:form>
+                        <h:form id="frmnd">
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Codigo" for="codpto"/>
                                 <p:inputText id="codpto" value="#{departamentoController.departamento.codigoDpto}" required="true" requiredMessage="Codigo Requerido" />
                                 <p:outputLabel for="dessdpto" value="Departamento"/>
-                                <p:inputText id="dessdpto" value="#{departamentoController.departamento.desDpto}" required="true" requiredMessage="Departamento Requerido"/>
-                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{departamentoController.registrar()}" oncomplete="PF('wdlgdpto').hide();" update=":frmdpto:tbldpto"/>
-                                <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgdpto').hide();" />
+                                <p:inputText id="dessdpto" value="#{departamentoController.departamento.desDpto}" required="true" requiredMessage="Departamento Requerido" />
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{departamentoController.registrar()}" oncomplete="PF('wdlgdpto').hide();" update=":frmdpto:tbldpto" >
+                                    <p:ajax resetValues="true" />
+                                </p:commandButton>
+                                <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgdpto').hide();" resetValues="true" />
                             </h:panelGrid>
                         </h:form>
                     </p:dialog>

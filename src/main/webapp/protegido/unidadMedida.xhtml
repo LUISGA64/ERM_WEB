@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <h:outputStylesheet name="css/index.css"/>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+
+                <p:panel id="pundmed" header="Unidad Medida Medicamentos">
+                    <h:form id="frmundmed">
+                        <p:contextMenu for="tblundmed">
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" >
+                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" />
+                            </p:menuitem>
+                        </p:contextMenu>
+
+                        <!-- Cuadro de dialogo de confirmacion -->
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{especialidadController.eliminar()}"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+
+                        <p:toolbar id="tlbund" style="background-color: #D20005">
+                            <f:facet name="left" rendered="true">
+                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" style="font-size: 16px;animation: linear" />
+                            </f:facet>
+                        </p:toolbar>
+                        <p:dataTable
+                            id="tblundmed"
+                            value="#{unidadMedidaController.lstundmed}"
+                            var="undmed"
+                            filteredValue="#{unidadMedidaController.lstundmed}"
+                            rowSelectMode="single"
+                            selection="#{unidadMedidaController.selundmed}"
+                            rows="10"
+                            paginator="true" 
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="5,10,15" 
+                            currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                            paginatorPosition="bottom"
+                            draggableRows="true"
+                            editable="true"
+                            rowKey="#{undmed.idUnd}"
+                            widgetVar="unm"
+                            emptyMessage="Sin Registros"
+                            style="font-size: 16px"
+                            >
+                            <!-- Ajax es el evento que permmite realizar la edicion del registro -->
+                            <p:ajax event="rowEdit" listener="#{unidadMedidaController.editar}" update=":frmundmed:tblundmed" />
+                            <p:column headerText="Codigo" filterBy="#{undmed.codUnd}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{undmed.codUnd}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{undmed.codUnd}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Unidad Medida" filterBy="#{undmed.desUnd}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{undmed.desUnd}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{undmed.desUnd}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column style="width: 25px">
+                                <p:rowEditor/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -7,19 +7,26 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
             <ui:define name="content">
                 <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <p:panel id="panel" header="Diagnósticos Cie10">
-
                     <h:form id="frmcie10">
-                        <p:commandButton value="Nuevo" icon="fa fa-fw fa-plus-circle" oncomplete="PF('wdlgcie10').show();" />
-                        <br/><br/>
+                        <p:toolbar style="background-color: yellowgreen; margin-top: 5px; margin-bottom: 10px">
+                        <f:facet name="left">
+                            <p:commandButton value="Nuevo" icon="fa fa-fw fa-plus-circle" oncomplete="PF('wdlgcie10').show();" style="font-size: 16px" />
+                        </f:facet>
+                    </p:toolbar>
+                        <p:contextMenu for="tblcie10">
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" action="#{cie10Controller.eliminar}" update=":frmcie10:tblcie10" />
+                        </p:contextMenu>
                         <p:dataTable
                             id="tblcie10"
                             value="#{cie10Controller.lstcie10}"
                             var="c1"
+                            rowKey="#{c1.idcie10}"
+                            selection="#{cie10Controller.selcie10}"
+                            selectionMode="single"
                             rows="10"
                             paginator="true"
                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -28,7 +35,7 @@
                             editable="true"
                             paginatorPosition="bottom"
                             emptyMessage="No hay coincidencias"
-                            style="font-size: 11px">
+                            style="font-size: 16px">
 
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{cie10Controller.leer}" update=":frmcie10:tblcie10" />
@@ -48,7 +55,7 @@
                                         <h:outputText value="#{c1.desCie10}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{c1.desCie10}"/>
+                                        <p:inputText value="#{c1.desCie10}" style="width: 400px"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
@@ -75,7 +82,6 @@
                     <p:dialog id="dlgcie10" widgetVar="wdlgcie10" header="Registrar Diagnóstico" modal="true" closeOnEscape="true" resizable="false" showEffect="explode">
                         <h:form>
                             <h:panelGrid columns="2">
-
                                 <p:outputLabel value="Codigo" for="codcie"/>
                                 <p:inputText id="codcie" value="#{cie10Controller.cie10.codCie10}" required="true" requiredMessage="Codigo Obligatorio"/>
                                 <p:outputLabel value="Diagnóstico" for="dx"/>
@@ -87,7 +93,7 @@
                                     <f:selectItem itemLabel="Mensual" itemValue="M"/>
                                     <f:selectItem itemLabel="Ninguna" itemValue="N"/>
                                 </p:selectOneRadio>
-                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{cie10Controller.registrar()}" oncomplete="PF('wdlgcie10').hide();" update=":frmcie10:tblcie10"/>
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{cie10Controller.registrar()}" oncomplete="PF('wdlgcie10').hide();" update=":frmcie10:tblcie10" resetValues="true"/>
                                 <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgcie10').hide();" />
                             </h:panelGrid>
                         </h:form>

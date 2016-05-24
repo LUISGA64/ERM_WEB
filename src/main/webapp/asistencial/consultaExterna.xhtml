@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/asistencial.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h:commandLink style="margin-left: 1250px" >
+                        <p:graphicImage name="/images/PDF.png" width="36" />
+                        <p:dataExporter type="pdf" target="agenda" fileName="cars" pageOnly="true" />
+                    </h:commandLink>
+                    <p:dataTable id="agenda" paginator="true" rows="10" paginatorPosition="botton" value="#{cie10Controller.lstcie10}"
+                                 paginatorTemplate="Exportar" >
+                        <f:facet name="Exportar">Agenda Médica</f:facet>
+                        <p:column headerText="Hora" width="100px">
+                            <h:outputLabel value="Hora" />
+                        </p:column>
+                        <p:column headerText="Paciente">
+                            <h:outputLabel value="Paciente" />
+                        </p:column>
+                        <p:column headerText="Especialidad">
+                            <h:outputLabel value="Especialidad" />
+                        </p:column>
+                        <p:column headerText="Médico">
+                            <h:outputLabel value="Médico" />
+                        </p:column>
+                        <p:column headerText="Atendido">
+                            <h:outputLabel value="Atendido" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

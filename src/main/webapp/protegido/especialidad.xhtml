@@ -24,17 +24,25 @@
                             <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{especialidadController.eliminar()}"/>
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
                         </p:confirmDialog> 
-                        <p:dataTable id="dtesp" var="esp" value="#{especialidadController.lstespecialidad}" style="font-size: 16px"
-                                     rows="10"
-                                     paginator="true" 
-                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15" 
-                                     currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-                                     paginatorPosition="bottom"
-                                     editable="true"
-                                     rowKey="#{esp.idespecialidad}"
-                                     selection="#{especialidadController.selesp}"
-                                     selectionMode="single">
+                        <p:dataTable
+                            currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                            draggableRows="true"
+                            editable="true"
+                            emptyMessage="Sin Registros"
+                            filteredValue="#{especialidadController.lstespecialidad}"
+                            id="dtesp"
+                            paginator="true"
+                            paginatorPosition="bottom"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rows="10"
+                            rowsPerPageTemplate="5,10,15"
+                            rowKey="#{esp.idespecialidad}"
+                            style="font-size: 16px"
+                            selection="#{especialidadController.selesp}"
+                            selectionMode="single"
+                            var="esp" 
+                            value="#{especialidadController.lstespecialidad}" 
+                            >
                             <f:facet name="header">Historia Clínica Web</f:facet>
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{especialidadController.editar}" update=":frmespecial:dtesp"  />

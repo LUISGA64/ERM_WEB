@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                <p:panel id="panel" header="Forma Farmaceutica">
+                    <h:form id="frmf">
+                        <p:toolbar style="background-color: yellowgreen; margin-top: 5px; margin-bottom: 10px">
+                            <f:facet name="left">
+                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgfrmf').show();" resetValues="wdlgfrmf" style="font-size: 16px"/>
+                            </f:facet>
+                        </p:toolbar>
+                        <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
+                        <p:contextMenu for="tblfrmf">
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px">
+                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />
+                            </p:menuitem>
+                        </p:contextMenu>                        
+                        <p:dataTable 
+                            id="tblfrmf" 
+                            value="#{formaFarmaceuticaController.lstformaf}" 
+                            var="ff" 
+                            rowKey="#{ff.idFormaf}"
+                            selection="#{formaFarmaceuticaController.selformaf}"
+                            selectionMode="single"
+                            rows="10"
+                            paginator="true" 
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="5,10,15" 
+                            currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                            paginatorPosition="bottom"
+                            draggableRows="true"
+                            emptyMessage="Sin Registros"
+                            editable="true"
+                            widgetVar="dpto"
+                            >
+                            <!-- Ajax es el evento que actualizara los datos de la tabla -->
+                            <p:ajax event="rowEdit" listener="#{formaFarmaceuticaController.editar}" update=":frmf:tblfrmf" />
+                            <!-- Columnas de la Tabla  -->
+                            <p:column headerText="Codigo" style="width:70px" filterBy="#{ff.codFormaFarma}" filterMatchMode="exact">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{ff.codFormaFarma}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{ff.codFormaFarma}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Forma Farmaceutica" filterBy="#{ff.formaFarma}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{ff.formaFarma}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{ff.formaFarma}" style="width: 90%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column> 
+                            <p:column style="width:20px">
+                                <p:rowEditor />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form >
+                    <p:dialog id="dlgfrmf" header="Forma Farmaceutica" widgetVar="wdlgfrmf" modal="true" closeOnEscape="true" resizable="false" showEffect="explode" >
+                        <h:form id="frmff">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Codigo" for="codffm"/>
+                                <p:inputText id="codffm" value="#{formaFarmaceuticaController.formafarmaceutica.codFormaFarma}" required="true" requiredMessage="Codigo Requerido" />
+                                <p:outputLabel for="desffm" value="Forma"/>
+                                <p:inputText id="desffm" value="#{formaFarmaceuticaController.formafarmaceutica.formaFarma}" required="true" requiredMessage="Detalle Requerido" style="width: 200px" />
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{formaFarmaceuticaController.registrar()}" oncomplete="PF('wdlgfrmf').hide();" update=":frmf:tblfrmf" >
+                                    <p:ajax resetValues="true" />
+                                </p:commandButton>
+                                <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgfrmf').hide();" resetValues="true" />
+                            </h:panelGrid>
+                        </h:form>
+                        <!-- Diaologo de confirmacion -->
+                        <h:form>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" action="#{formaFarmaceuticaController.eliminar}" update=":frmf:tblfrmf" />
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>
+                            </p:confirmDialog>
+                        </h:form>
+                    </p:dialog>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

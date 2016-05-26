@@ -13,8 +13,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
 
-@ViewScoped
 @Named
+@ViewScoped
 public class UnidadMedidaController implements Serializable{
     
     @EJB
@@ -32,6 +32,14 @@ public class UnidadMedidaController implements Serializable{
     
     /*Setter && Getter*/
 
+    public UnidadMedida getUnidadmedida() {
+        return unidadmedida;
+    }
+
+    public void setUnidadmedida(UnidadMedida unidadmedida) {
+        this.unidadmedida = unidadmedida;
+    }
+    
     public List<UnidadMedida> getLstundmed() {
         return lstundmed;
     }

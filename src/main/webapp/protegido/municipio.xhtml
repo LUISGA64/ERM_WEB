@@ -12,7 +12,12 @@
                 <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <p:panel id="panel" header="Municipios">
                     <h:form id="frmmpio">
-                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgmpio').show();" resetValues="wdlgmpio"/><br/><br/>
+                        <p:toolbar id="tbmpio">
+                            <f:facet name="left" rendered="true">
+                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgmpio').show();" resetValues="wdlgmpio"/>
+                            </f:facet>
+                        </p:toolbar>
+                        <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros  -->
                         <p:contextMenu for="tblmpio">
                             <p:menuitem value="Eliminar" icon="ui-icon-close" action="#{municipioController.eliminar}" update=":frmmpio:tblmpio" />
                         </p:contextMenu>

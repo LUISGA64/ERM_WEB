@@ -12,7 +12,7 @@
                 <p:growl id="messages" showDetail="true" autoUpdate="true" sticky="true" life="25" />
                 <p:panel id="panel" header="Especialidades Médicas" >
                     <h:form id="frmespecial">
-                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgesp').show();"  /> <br/><br/>
+                        <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgesp').show();" update=":frmesp:dlgesp"  /> <br/><br/>
                         <!-- ContextMenu agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="dtesp" style="font-size: 11px">
                             <p:menuitem value="Eliminar" icon="ui-icon-close" style="font-size: 11px" update="dtesp">
@@ -63,8 +63,10 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
-                    <p:dialog id="dlgesp" header="Registrar Especialidad" widgetVar="wdlgesp" modal="true" closeOnEscape="true" resizable="false" >
-                        <h:form id="frmesp">
+                    
+                    
+                    <h:form id="frmesp"> 
+                        <p:dialog id="dlgesp" header="Registrar Especialidad" widgetVar="wdlgesp" modal="true" closeOnEscape="true" resizable="false" >
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Codigo" for="codesp"/>
                                 <p:inputText id="codesp" value="#{especialidadController.especialidad.codEspecialidad}" required="true" requiredMessage="Codigo Requerido" />
@@ -73,9 +75,12 @@
                                 <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{especialidadController.registrar()}" oncomplete="PF('wdlgesp').hide();" update=":frmespecial:dtesp"/>
                                 <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgesp').hide();" />
                             </h:panelGrid>
-                        </h:form>
-                    </p:dialog>
+                        </p:dialog>
+                    </h:form>
                 </p:panel>
+                
+                
+                
             </ui:define>
         </ui:composition>
     </body>

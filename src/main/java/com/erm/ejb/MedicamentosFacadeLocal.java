@@ -20,5 +20,7 @@ public interface MedicamentosFacadeLocal {
     List<Medicamentos> findRange(int[] range);
 
     int count();
+
+    public Medicamentos buscarmedicamento(Medicamentos med);
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.erm.model;
 
@@ -22,10 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
- */
+
 @Entity
 @Table(name = "medicamentos")
 @XmlRootElement
@@ -36,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Medicamentos.findByExpediente", query = "SELECT m FROM Medicamentos m WHERE m.expediente = :expediente"),
     @NamedQuery(name = "Medicamentos.findByConsecutivo", query = "SELECT m FROM Medicamentos m WHERE m.consecutivo = :consecutivo"),
     @NamedQuery(name = "Medicamentos.findByPresentacion", query = "SELECT m FROM Medicamentos m WHERE m.presentacion = :presentacion"),
+    @NamedQuery(name = "Medicamentos.findByCum", query = "SELECT m FROM Medicamentos m WHERE m.cum = :cum"),
     @NamedQuery(name = "Medicamentos.findByAtc", query = "SELECT m FROM Medicamentos m WHERE m.atc = :atc"),
     @NamedQuery(name = "Medicamentos.findByDescripcionAtc", query = "SELECT m FROM Medicamentos m WHERE m.descripcionAtc = :descripcionAtc"),
     @NamedQuery(name = "Medicamentos.findByPrincipioActivo", query = "SELECT m FROM Medicamentos m WHERE m.principioActivo = :principioActivo"),
@@ -77,6 +70,11 @@ public class Medicamentos implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "principio_activo")
     private String principioActivo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 9)
+    @Column(name = "cum")
+    private String cum;
     @Column(name = "pos")
     private Boolean pos;
     @JoinColumn(name = "forma_farmaceutica", referencedColumnName = "id_formaf")
@@ -96,12 +94,13 @@ public class Medicamentos implements Serializable {
         this.idMedicamento = idMedicamento;
     }
 
-    public Medicamentos(Integer idMedicamento, String producto, String presentacion, String atc, String principioActivo) {
+    public Medicamentos(Integer idMedicamento, String producto, String presentacion, String atc, String principioActivo, String cum) {
         this.idMedicamento = idMedicamento;
         this.producto = producto;
         this.presentacion = presentacion;
         this.atc = atc;
         this.principioActivo = principioActivo;
+        this.cum = cum;
     }
 
     public Integer getIdMedicamento() {
@@ -148,6 +147,14 @@ public class Medicamentos implements Serializable {
         return atc;
     }
 
+    public String getCum() {
+        return cum;
+    }
+
+    public void setCum(String cum) {
+        this.cum = cum;
+    }
+    
     public void setAtc(String atc) {
         this.atc = atc;
     }

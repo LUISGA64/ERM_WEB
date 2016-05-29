@@ -80,6 +80,7 @@ public class FormaFarmaceuticaController implements Serializable{
     public void eliminar(){
         try{
             formafarmaceuticaEJB.remove(selformaf);
+            System.out.println("Eliminado: "+selformaf.getCodFormaFarma()+" Detalle: "+selformaf.getFormaFarma());
             selformaf = null;
             lstformaf = formafarmaceuticaEJB.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Forma Farmaceutica", "Registro Eliminado "));

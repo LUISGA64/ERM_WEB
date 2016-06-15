@@ -22,6 +22,8 @@
                             <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" actionListener="#{unidadMedidaController.eliminar}" update=":frmundmed:tblundmed" />
                         </p:contextMenu>
                         <p:dataTable
+<<<<<<< HEAD
+=======
                             id="tblundmed"
                             value="#{unidadMedidaController.lstundmed}"
                             var="undmed"
@@ -32,11 +34,30 @@
                             paginator="true"
                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="5,10,15"
+>>>>>>> refs/remotes/origin/desarrollo
                             currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-                            paginatorPosition="bottom"
                             draggableRows="true"
+<<<<<<< HEAD
+                            editable="true"
+                            emptyMessage="Sin Registros"
+                            filteredValue="#{unidadMedidaController.lstundmed}"
+                            id="tblundmed"
+                            paginator="true"
+                            paginatorPosition="bottom"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rows="10"
+                            rowKey="#{undmed.idUnd}"
+                            rowsPerPageTemplate="5,10,15"
+                            selection="#{unidadMedidaController.selundmed}"
+                            selectionMode="single"
+                            style="font-size: 16px"
+                            value="#{unidadMedidaController.lstundmed}"
+                            var="undmed"
+                            widgetVar="unm"
+=======
                             emptyMessage="Sin Registros"
                             editable="true"
+>>>>>>> refs/remotes/origin/desarrollo
                             >
                             <!-- Ajax es el evento que permmite realizar la edicion del registro -->
                             <p:ajax event="rowEdit" listener="#{unidadMedidaController.editar}" update=":frmundmed:tblundmed" />

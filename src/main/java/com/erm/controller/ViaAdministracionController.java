@@ -18,11 +18,9 @@ import org.primefaces.event.RowEditEvent;
 public class ViaAdministracionController implements Serializable {
 
     @EJB
-<<<<<<< HEAD
+
     private ViaAdministracionFacadeLocal viadmonEJB;
-=======
     private ViaAdministracionFacadeLocal viaadministracionEJB;
->>>>>>> refs/remotes/origin/desarrollo
     private List<ViaAdministracion> lstvadmon;
     private ViaAdministracion selvadmon;
 
@@ -31,11 +29,7 @@ public class ViaAdministracionController implements Serializable {
 
     @PostConstruct
     public void init() {
-<<<<<<< HEAD
         lstvadmon = viadmonEJB.findAll();
-=======
-        lstvadmon = viaadministracionEJB.findAll();
->>>>>>> refs/remotes/origin/desarrollo
     }
 
     /*Getter && Setter*/
@@ -68,13 +62,8 @@ public class ViaAdministracionController implements Serializable {
     
     public void registrar() {
         try {
-<<<<<<< HEAD
-            viadmonEJB.create(viaadministracion);
-            lstvadmon = viadmonEJB.findAll();
-=======
             viaadministracionEJB.create(viaadministracion);
             lstvadmon = viaadministracionEJB.findAll();
->>>>>>> refs/remotes/origin/desarrollo
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Vía Administración", "Registro Exitoso."));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Vía Administración", "Registro Falló."+ e));
@@ -85,19 +74,11 @@ public class ViaAdministracionController implements Serializable {
     
     public void editar(RowEditEvent event) {
         ViaAdministracion vam1 = (ViaAdministracion) event.getObject();
-<<<<<<< HEAD
-        ViaAdministracion vam2 = viadmonEJB.find(vam1.getIdVia());
-        vam2.setCodVia(vam1.getCodVia());
-        vam2.setDescripcioVia(vam1.getDescripcioVia());
-        viadmonEJB.edit(vam2);
-        lstvadmon = viadmonEJB.findAll();
-=======
         ViaAdministracion vam2 = viaadministracionEJB.find(vam1.getIdVia());
         vam2.setCodVia(vam1.getCodVia());
         vam2.setDescripcioVia(vam1.getDescripcioVia());
         viaadministracionEJB.edit(vam2);
         lstvadmon = viaadministracionEJB.findAll();
->>>>>>> refs/remotes/origin/desarrollo
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Vía Administración", "Registro Modificado."));
     }
 
@@ -105,17 +86,10 @@ public class ViaAdministracionController implements Serializable {
     
     public void eliminar() {
         try {
-<<<<<<< HEAD
-            viadmonEJB.remove(selvadmon);
-            System.out.println("Eliminado: " + selvadmon.getCodVia() + " Descripcion: " + selvadmon.getDescripcioVia());
-            selvadmon = null;
-            lstvadmon = viadmonEJB.findAll();
-=======
             viaadministracionEJB.remove(selvadmon);
             System.out.println("Eliminado: " + selvadmon.getCodVia() + " Descripcion: " + selvadmon.getDescripcioVia());
             selvadmon = null;
             lstvadmon=viaadministracionEJB.findAll();
->>>>>>> refs/remotes/origin/desarrollo
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Vía Administración", "Registro Eliminado "));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Vía Administración", "Registro No Eliminado " + e));

@@ -11,13 +11,18 @@
                 <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <p:panel id="pvadm" header="Vía Administración Medicamentos">
                     <h:form id="frmvadm">
+<<<<<<< HEAD
                         <p:toolbar id="tbvadm" style="background-color: #D20005">
+=======
+                        <p:toolbar id="tbvadm" >
+>>>>>>> refs/remotes/origin/desarrollo
                             <f:facet name="left" rendered="true">
                                 <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgvadm').show();" resetValues="wdlgvadm" style="font-size: 16px"/>
                             </f:facet>
                         </p:toolbar>
                         <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros  -->
                         <p:contextMenu for="tblvadm">
+<<<<<<< HEAD
                             <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" action="#{viaAdministracionController.eliminar}" update=":frmvadm:tblvadm" />
                         </p:contextMenu>
                         <p:dataTable id="tblvadm"
@@ -38,6 +43,26 @@
                             value="#{viaAdministracionController.lstvadmon}"
                             var="vadm"
                             widgetVar="vadm"
+=======
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" actionListener="#{viaAdministracionController.eliminar}" update=":frmvadm:tblvadm" />
+                        </p:contextMenu>
+                        <p:dataTable
+                            id="tblvadm"
+                            value="#{viaAdministracionController.lstvadmon}"
+                            var="vadm"
+                            rowKey="#{vadm.idVia}"
+                            selection="#{viaAdministracionController.selvadmon}"
+                            selectionMode="single"
+                            rows="10"
+                            paginator="true"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="5,10,15"
+                            currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                            paginatorPosition="bottom"
+                            draggableRows="true"
+                            emptyMessage="Sin Registros"
+                            editable="true"
+>>>>>>> refs/remotes/origin/desarrollo
                             >
                             <!-- Columnas de la Tabla  -->
                             <p:column headerText="Codigo" filterBy="#{vadm.codVia}" filterMatchMode="contains">
@@ -65,9 +90,14 @@
                                 <p:inputText id="codvadm" value="#{viaAdministracionController.viaadministracion.codVia}" required="true" requiredMessage="Codigo Requerido" />
                                 <p:outputLabel for="desvadm" value="Vía Administración"/>
                                 <p:inputText id="desvadm" value="#{viaAdministracionController.viaadministracion.descripcioVia}" required="true" requiredMessage="Descripción Requerida"/>
+<<<<<<< HEAD
                                 <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{viaAdministracionController.registrar()}" oncomplete="PF('wdlgvadm').hide();" update=":frmvadm:tblvadm" >
                                     <p:ajax resetValues="true"/>
                                 </p:commandButton>
+=======
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{viaAdministracionController.registrar()}" oncomplete="PF('wdlgvadm').hide();" update=":frmvadm:tblvadm" />
+                                    
+>>>>>>> refs/remotes/origin/desarrollo
                                 <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgvadm').hide();" resetValues="true" />
                             </h:panelGrid>
                         </h:form>
@@ -77,5 +107,9 @@
         </ui:composition>
         <!-- Ajax es el evento que permmite realizar la edicion del registro -->
         <p:ajax event="rowEdit" listener="#{viaAdministracionController.editar}" update=":frmvadm:tblvadm" />
+<<<<<<< HEAD
+=======
+        <p:ajax event="rowEdit" listener="#{departamentoController.leer}" update=":frmdpto:tbldpto" />
+>>>>>>> refs/remotes/origin/desarrollo
     </body>
 </html>

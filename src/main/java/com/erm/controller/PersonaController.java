@@ -21,6 +21,7 @@ import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
 
 @ViewScoped
 @Named
@@ -31,7 +32,7 @@ public class PersonaController implements Serializable {
     private List<Persona> lstpersona;
     private Persona selpersona;
     private List<Persona> listpersona;
-    
+    private Persona buscarpersona;
 
     @Inject
     private Persona persona;
@@ -53,6 +54,15 @@ public class PersonaController implements Serializable {
     }
 
     //getter y setter
+
+    public Persona getBuscarpersona() {
+        return buscarpersona;
+    }
+
+    public void setBuscarpersona(Persona buscarpersona) {
+        this.buscarpersona = buscarpersona;
+    }
+    
     public List<Persona> getListpersona() {
         return listpersona;
     }
@@ -132,8 +142,10 @@ public class PersonaController implements Serializable {
         }
     }
 
-    public void buscar() throws Exception {
-        personaEJB.findAll();
+    public void buscar(SelectEvent event){
+        Persona p1 = (Persona)event.getObject();
+        
+        
     }
 
     public static int calcularEdad(String fecha) {

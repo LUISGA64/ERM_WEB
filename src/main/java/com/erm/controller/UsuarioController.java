@@ -13,6 +13,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
 
 @Named
 @ViewScoped
@@ -104,5 +105,10 @@ public class UsuarioController implements Serializable {
         lstusuario = usuarioEJB.findAll();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM - Usuario", "Registro Eliminado"));
         System.out.println("Seleccionado: "+usuario.getIdusuario());
+    }
+    
+    public void buscar(SelectEvent event){
+        Usuario usuario = (Usuario) event.getObject();
+        
     }
 }

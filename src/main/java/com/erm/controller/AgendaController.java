@@ -95,7 +95,7 @@ public class AgendaController implements Serializable {
                 }  
             }
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Agenda", "Error"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Agenda", "Error no se registro el error"));
         }
 
     }

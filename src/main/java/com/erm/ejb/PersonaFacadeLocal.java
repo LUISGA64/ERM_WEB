@@ -26,5 +26,7 @@ public interface PersonaFacadeLocal {
     List<Persona> findRange(int[] range);
     
     int count();
+
+    public Persona obtenerpersona(Persona per) throws Exception;
     
 }

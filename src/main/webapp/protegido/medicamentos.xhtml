@@ -32,7 +32,7 @@
                                 <p:outputLabel for="somVad" value="Vía Administración"/>
                                 <p:selectOneMenu id="somVad" style="width: 130px; font-size: 12px" value="#{medicamentoController.medicamentos.viaAdministracion}" converter="omnifaces.SelectItemsConverter" >
                                     <f:selectItem itemLabel="Seleccione.." itemValue="null" noSelectionOption="true"/>
-                                    <f:selectItems value="#{viaAdministracionController.lstvadmon}" var="vadm" itemLabel="#{vadm.descripcioVia}" itemValue="#{vadm}" />
+                                    <f:selectItems value="#{viaAdministracionController.lstvadmon}" var="vadm" itemLabel="#{vadm.descripcioVia}" itemValue="#{vadm.idVia}" />
                                 </p:selectOneMenu>
                                 
                                 <p:outputLabel value="ATC" for="atc"/>
@@ -50,19 +50,19 @@
                                 <p:outputLabel for="somUndmed" value="Unidad Medida"/>
                                 <p:selectOneMenu id="somUndmed" value="#{medicamentoController.medicamentos.unidadMedida}" converter="omnifaces.SelectItemsConverter" style="width: 130px; font-size: 12px">
                                     <f:selectItem itemLabel="Seleccione.."/>
-                                    <f:selectItems value="#{unidadMedidaController.lstundmed}" var="undmed" itemLabel="#{undmed.desUnd}" itemValue="#{undmed}" />
+                                    <f:selectItems value="#{unidadMedidaController.lstundmed}" var="undmed" itemLabel="#{undmed.desUnd}" itemValue="#{undmed.idUnd}" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="somformf" value="Forma Farmaceutica"/>
                                 <p:selectOneMenu id="somformf" value="#{medicamentoController.medicamentos.formaFarmaceutica}" converter="omnifaces.SelectItemsConverter" style="width: 130px; font-size: 12px" required="true">
                                     <f:selectItem itemLabel="Seleccione.."/>
-                                    <f:selectItems value="#{formaFarmaceuticaController.lstformaf}" var="formf" itemLabel="#{formf.formaFarma}" itemValue="#{formf}" />
+                                    <f:selectItems value="#{formaFarmaceuticaController.lstformaf}" var="formf" itemLabel="#{formf.formaFarma}" itemValue="#{formf.idFormaf}" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel value="POS" />
                                 <p:selectOneRadio id="pos" value="#{medicamentoController.medicamentos.pos}" required="true"  layout="grid" columns="2" style="justify-content: center">
-                                    <f:selectItem itemLabel="POS" itemValue="TRUE"/>
-                                    <f:selectItem itemLabel="NO POS" itemValue="FALSE"/>
+                                    <f:selectItem itemLabel="POS" itemValue="T"/>
+                                    <f:selectItem itemLabel="NO POS" itemValue="F"/>
                                 </p:selectOneRadio>
 
                                 <p:outputLabel for="cons" value="Consecutivo"/>

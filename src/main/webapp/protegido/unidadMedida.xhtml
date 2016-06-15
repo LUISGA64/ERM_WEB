@@ -5,7 +5,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
     <body>
         <h:outputStylesheet name="css/index.css"/>
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
@@ -23,24 +22,21 @@
                             <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" actionListener="#{unidadMedidaController.eliminar}" update=":frmundmed:tblundmed" />
                         </p:contextMenu>
                         <p:dataTable
-                            currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-                            draggableRows="true"
-                            editable="true"
-                            emptyMessage="Sin Registros"
-                            filteredValue="#{unidadMedidaController.lstundmed}"
                             id="tblundmed"
-                            paginator="true"
-                            paginatorPosition="bottom"
-                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            rows="10"
-                            rowKey="#{undmed.idUnd}"
-                            rowsPerPageTemplate="5,10,15"
-                            selection="#{unidadMedidaController.selundmed}"
-                            selectionMode="single"
-                            style="font-size: 16px"
                             value="#{unidadMedidaController.lstundmed}"
                             var="undmed"
-                            widgetVar="unm"
+                            rowKey="#{undmed.idUnd}"
+                            selection="#{unidadMedidaController.selundmed}"
+                            selectionMode="single"
+                            rows="10"
+                            paginator="true"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="5,10,15"
+                            currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                            paginatorPosition="bottom"
+                            draggableRows="true"
+                            emptyMessage="Sin Registros"
+                            editable="true"
                             >
                             <!-- Ajax es el evento que permmite realizar la edicion del registro -->
                             <p:ajax event="rowEdit" listener="#{unidadMedidaController.editar}" update=":frmundmed:tblundmed" />

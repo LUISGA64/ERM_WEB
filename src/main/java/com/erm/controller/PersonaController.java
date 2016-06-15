@@ -21,6 +21,7 @@ import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
 
 @ViewScoped
 @Named
@@ -54,6 +55,8 @@ public class PersonaController implements Serializable {
     }
 
     //getter y setter
+
+
     public List<Persona> getListpersona() {
         return listpersona;
     }
@@ -140,6 +143,12 @@ public class PersonaController implements Serializable {
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registro Falló."));
         }
+    }
+
+    public void buscar(SelectEvent event){
+        Persona p1 = (Persona)event.getObject();
+        
+        
     }
 
     public static int calcularEdad(String fecha) {

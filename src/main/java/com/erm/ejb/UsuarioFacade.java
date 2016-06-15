@@ -1,4 +1,4 @@
-package com.erm.ejb;
+ package com.erm.ejb;
 
 import com.erm.model.Usuario;
 import java.util.List;

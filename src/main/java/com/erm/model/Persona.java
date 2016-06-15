@@ -2,7 +2,9 @@ package com.erm.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -45,6 +49,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Persona.findByTelac", query = "SELECT p FROM Persona p WHERE p.telac = :telac"),
     @NamedQuery(name = "Persona.findByApellido2", query = "SELECT p FROM Persona p WHERE p.apellido2 = :apellido2")})
 public class Persona implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaciente")
+    private List<Agenda> agendaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -377,6 +384,15 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "com.erm.model.Persona[ idpersona=" + idpersona + " ]";
+    }
+
+    @XmlTransient
+    public List<Agenda> getAgendaList() {
+        return agendaList;
+    }
+
+    public void setAgendaList(List<Agenda> agendaList) {
+        this.agendaList = agendaList;
     }
     
 }

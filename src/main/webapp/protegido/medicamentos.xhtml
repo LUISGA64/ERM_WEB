@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                <p:panel id="pnmed" header="Medicamentos" >
+                    <h:form id="frmmed">
+                        <p:toolbar id="tbmed" style="background-color: yellowgreen; margin-top: 5px; margin-bottom: 5px">
+                            <f:facet name="left">
+                                <p:commandButton value="Nuevo" actionListener="#{medicamentoController.registrar()}" icon="ui-icon-plusthick" />
+                            </f:facet>
+                        </p:toolbar>
+                        <p:fieldset id="fsmed" style="font-size: 14px">
+                            <h:panelGrid columns="8" cellpadding="1" cellspacing="10" style="font-size: 13px">
+
+                                <p:outputLabel for="prd" value="Medicamento"/>
+                                <p:inputText id="prd" value="#{medicamentoController.medicamentos.producto}" required="true" /> 
+
+                                <p:outputLabel for="pres" value="Presentación"/>
+                                <p:inputText id="pres" value="#{medicamentoController.medicamentos.presentacion}" required="true"/>
+
+                                <p:outputLabel for="pract" value="Principio Activo"/>
+                                <p:inputText id="pract" value="#{medicamentoController.medicamentos.principioActivo}" required="true" />
+
+                                <p:outputLabel for="somVad" value="Vía Administración"/>
+                                <p:selectOneMenu id="somVad" style="width: 130px; font-size: 12px" value="#{medicamentoController.medicamentos.viaAdministracion}" converter="omnifaces.SelectItemsConverter" >
+                                    <f:selectItem itemLabel="Seleccione.." itemValue="null" noSelectionOption="true"/>
+                                    <f:selectItems value="#{viaAdministracionController.lstvadmon}" var="vadm" itemLabel="#{vadm.descripcioVia}" itemValue="#{vadm}" />
+                                </p:selectOneMenu>
+                                
+                                <p:outputLabel value="ATC" for="atc"/>
+                                <p:inputText id="atc" value="#{medicamentoController.medicamentos.atc}" required="true" />
+
+                                <p:outputLabel for="desatc" value="Descripción ATC"/>
+                                <p:inputText id="desatc" value="#{medicamentoController.medicamentos.descripcionAtc}" required="true" />
+
+                                <p:outputLabel for="CdCum" value="Código CUM"/>
+                                <p:inputText id="CdCum" value="#{medicamentoController.medicamentos.cum}" required="true" />
+
+                                <p:outputLabel for="expd" value="Expediente"/>
+                                <p:inputText id="expd" value="#{medicamentoController.medicamentos.expediente}" required="true" />
+
+                                <p:outputLabel for="somUndmed" value="Unidad Medida"/>
+                                <p:selectOneMenu id="somUndmed" value="#{medicamentoController.medicamentos.unidadMedida}" converter="omnifaces.SelectItemsConverter" style="width: 130px; font-size: 12px">
+                                    <f:selectItem itemLabel="Seleccione.."/>
+                                    <f:selectItems value="#{unidadMedidaController.lstundmed}" var="undmed" itemLabel="#{undmed.desUnd}" itemValue="#{undmed}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="somformf" value="Forma Farmaceutica"/>
+                                <p:selectOneMenu id="somformf" value="#{medicamentoController.medicamentos.formaFarmaceutica}" converter="omnifaces.SelectItemsConverter" style="width: 130px; font-size: 12px" required="true">
+                                    <f:selectItem itemLabel="Seleccione.."/>
+                                    <f:selectItems value="#{formaFarmaceuticaController.lstformaf}" var="formf" itemLabel="#{formf.formaFarma}" itemValue="#{formf}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="POS" />
+                                <p:selectOneRadio id="pos" value="#{medicamentoController.medicamentos.pos}" required="true"  layout="grid" columns="2" style="justify-content: center">
+                                    <f:selectItem itemLabel="POS" itemValue="TRUE"/>
+                                    <f:selectItem itemLabel="NO POS" itemValue="FALSE"/>
+                                </p:selectOneRadio>
+
+                                <p:outputLabel for="cons" value="Consecutivo"/>
+                                <p:inputText id="cons" value="#{medicamentoController.medicamentos.consecutivo}" required="true" />
+
+                            </h:panelGrid>
+                        </p:fieldset>
+                    </h:form>
+
+                    <!--   -->
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -19,7 +19,7 @@
         <div id="top">
             <ui:insert name="top">
                 <h:form>
-                    <p:menubar>
+                    <p:menubar >
                         <p:submenu label="Localidad" icon="fa fa-fw fa-paper-plane-o">
                             <p:menuitem value="Departamento" outcome="departamento" />
                             <p:menuitem value="Municipios" outcome="municipio" />
@@ -35,12 +35,16 @@
                         </p:submenu>
                         <p:submenu label="Formatos" icon="fa fa-fw fa-file-o">
                             <p:menuitem value="Consulta Externa" outcome="/asistencial/consultaExterna"/>
+                            <p:menuitem value="Agenda" outcome="/protegido/agenda"/>
                         </p:submenu>
                         <p:submenu label="Acceso" icon="fa fa-fw fa-key" >
                             <p:menuitem value="Usuario" outcome="/protegido/usuario"/>
                         </p:submenu>
                         <p:submenu label="Medicamentos" icon="fa fa-fw fa-medkit" >
                             <p:menuitem value="Unidad Medida" outcome="/protegido/unidadMedida"/>
+                            <p:menuitem value="Forma Farmaceutica" outcome="/protegido/formafarmaceutica"/>
+                            <p:menuitem value="Vía Administración" outcome="/protegido/viaadministracion"/>
+                            <p:menuitem value="Medicamentos" outcome="/protegido/medicamentos"/>
                         </p:submenu>
                     </p:menubar>
                 </h:form><br/>

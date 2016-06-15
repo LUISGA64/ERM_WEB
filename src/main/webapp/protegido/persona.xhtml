@@ -110,15 +110,15 @@
                         </p:tab>
                     </p:accordionPanel>
                 </h:form>
-                <p:dialog id="dlgper" widgetVar="wdlgper" header="Buscar Afiliado" modal="true" closeOnEscape="true" footer="Busque las personas" style="font-size: 11px; alignment-adjust: auto">
-                    <h:form>
+
+                <h:form id="frmbuscar">
+                    <p:dialog id="dlgper" widgetVar="wdlgper" header="Buscar Afiliado" modal="true" closeOnEscape="true" footer="Busque las personas" style="font-size: 11px; ">
                         <p:dataTable 
                             value="#{personaController.lstpersona}" 
-                            var="pers" widgetVar="datapers" 
+                            var="pers"
                             filteredValue="#{personaController.listpersona}" 
                             rowKey="#{pers.idpersona}"
                             selectionMode="single"
-                            selection="#{personaController.selpersona}"
                             style="width: 800px"
                             >
                             <f:facet name="header">
@@ -142,9 +142,14 @@
                             <p:column headerText="Segundo Apellido" filterBy="#{pers.apellido2}" filterMatchMode="contains">
                                 <h:outputText value="#{pers.apellido2}"/>
                             </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-search" title="Ver" >
+                                    <f:setPropertyActionListener value="#{pers}" target="#{personaController.personaseleccionada}" />
+                                </p:commandButton>
+                            </p:column>
                         </p:dataTable>
-                    </h:form>    
-                </p:dialog>
+                    </p:dialog>    
+                </h:form>
             </ui:define>
         </ui:composition>
     </body>

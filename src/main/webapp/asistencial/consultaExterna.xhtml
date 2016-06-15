@@ -4,40 +4,46 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
     <body>
-
         <ui:composition template="./../WEB-INF/templates/asistencial.xhtml">
-
             <ui:define name="content">
-                <h:form>
-                    <h:commandLink style="margin-left: 1250px" >
-                        <p:graphicImage name="/images/PDF.png" width="36" />
-                        <p:dataExporter type="pdf" target="agenda" fileName="cars" pageOnly="true" />
-                    </h:commandLink>
-                    <p:dataTable id="agenda" paginator="true" rows="10" paginatorPosition="botton" value="#{cie10Controller.lstcie10}"
-                                 paginatorTemplate="Exportar" >
-                        <f:facet name="Exportar">Agenda Médica</f:facet>
-                        <p:column headerText="Hora" width="100px">
-                            <h:outputLabel value="Hora" />
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                <h:form>   
+                    <p:toolbar >
+                        <f:facet name="left">Agenda Médica</f:facet>
+                    </p:toolbar><br/>
+                    <p:dataTable 
+                        id="agenda" 
+                        paginator="true" 
+                        paginatorPosition="botton" 
+                        value="#{agendaController.lstagenda}"
+                        var="cta"
+                        style="font-size: 12px"
+                        >
+                        <p:column headerText="Hora" width="60px">
+                            <h:outputText value="#{cta.hora}">
+                                <f:convertDateTime pattern="HH:mm"/>
+                            </h:outputText>
                         </p:column>
-                        <p:column headerText="Paciente">
-                            <h:outputLabel value="Paciente" />
+                        <p:column width="60px">
+                            <h:outputText value="#{cta.fechaCita}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
                         </p:column>
-                        <p:column headerText="Especialidad">
-                            <h:outputLabel value="Especialidad" />
+                        <p:column headerText="Paciente" width="130px">
+                            <h:outputText value="#{cta.idPaciente.nombre1} #{cta.idPaciente.nombre2} #{cta.idPaciente.apellido1} #{cta.idPaciente.apellido2}" />
                         </p:column>
-                        <p:column headerText="Médico">
-                            <h:outputLabel value="Médico" />
+                        <p:column width="50px">
+                            <p:commandButton value="Atender" />
                         </p:column>
-                        <p:column headerText="Atendido">
-                            <h:outputLabel value="Atendido" />
+                        <p:column width="50px">
+                            <p:commandButton value="Inasistencia" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
             </ui:define>
         </ui:composition>
-
     </body>
 </html>

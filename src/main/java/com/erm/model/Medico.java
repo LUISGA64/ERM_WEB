@@ -2,7 +2,9 @@
 package com.erm.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +15,12 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,6 +45,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 public class Medico implements Serializable {
+
+    @Lob
+    @Column(name = "firma")
+    private byte[] firma;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private List<Agenda> agendaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,9 +86,6 @@ public class Medico implements Serializable {
     private String ideMed;
     @Column(name = "estado")
     private Boolean estado;
-    @Lob
-    @Column(name = "firma")
-    private byte[] firma;
     @JoinColumn(name = "especialidad", referencedColumnName = "idespecialidad")
     @ManyToOne
     private Especialidad especialidad;
@@ -165,13 +172,6 @@ public class Medico implements Serializable {
         this.estado = estado;
     }
 
-    public byte[] getFirma() {
-        return firma;
-    }
-
-    public void setFirma(byte[] firma) {
-        this.firma = firma;
-    }
 
     public Especialidad getEspecialidad() {
         return especialidad;
@@ -212,6 +212,23 @@ public class Medico implements Serializable {
     @Override
     public String toString() {
         return "com.erm.model.Medico[ idmedico=" + idmedico + " ]";
+    }
+
+    public byte[] getFirma() {
+        return firma;
+    }
+
+    public void setFirma(byte[] firma) {
+        this.firma = firma;
+    }
+
+    @XmlTransient
+    public List<Agenda> getAgendaList() {
+        return agendaList;
+    }
+
+    public void setAgendaList(List<Agenda> agendaList) {
+        this.agendaList = agendaList;
     }
     
 }

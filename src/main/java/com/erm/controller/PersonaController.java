@@ -31,6 +31,7 @@ public class PersonaController implements Serializable {
     private List<Persona> lstpersona;
     private Persona selpersona;
     private List<Persona> listpersona;
+    private Persona personaseleccionada;
     
 
     @Inject
@@ -117,6 +118,15 @@ public class PersonaController implements Serializable {
         this.niveleducativo = niveleducativo;
     }
 
+    public Persona getPersonaseleccionada() {
+        return personaseleccionada;
+    }
+
+    public void setPersonaseleccionada(Persona personaseleccionada) {
+        this.personaseleccionada = personaseleccionada;
+    }
+ 
+
     // Metodos
     public void setlistpersona(List<Persona> listpersona) {
         this.listpersona = listpersona;
@@ -130,10 +140,6 @@ public class PersonaController implements Serializable {
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registro Falló."));
         }
-    }
-
-    public void buscar() throws Exception {
-        personaEJB.findAll();
     }
 
     public static int calcularEdad(String fecha) {
@@ -163,4 +169,5 @@ public class PersonaController implements Serializable {
         }
 
     }
+
 }

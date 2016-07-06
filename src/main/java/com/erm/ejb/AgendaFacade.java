@@ -3,14 +3,12 @@
 package com.erm.ejb;
 
 import com.erm.model.Agenda;
-import com.erm.model.Medico;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
-import javax.swing.JOptionPane;
 
 
 @Stateless
@@ -69,5 +67,4 @@ public class AgendaFacade extends AbstractFacade<Agenda> implements AgendaFacade
         }
         return agenda;
     }
-    
 }

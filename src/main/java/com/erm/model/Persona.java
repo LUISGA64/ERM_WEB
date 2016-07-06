@@ -50,6 +50,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Persona.findByApellido2", query = "SELECT p FROM Persona p WHERE p.apellido2 = :apellido2")})
 public class Persona implements Serializable {
 
+    @OneToMany(mappedBy = "idPaciente")
+    private List<Historia> historiaList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaciente")
     private List<Agenda> agendaList;
 
@@ -393,6 +396,15 @@ public class Persona implements Serializable {
 
     public void setAgendaList(List<Agenda> agendaList) {
         this.agendaList = agendaList;
+    }
+
+    @XmlTransient
+    public List<Historia> getHistoriaList() {
+        return historiaList;
+    }
+
+    public void setHistoriaList(List<Historia> historiaList) {
+        this.historiaList = historiaList;
     }
     
 }

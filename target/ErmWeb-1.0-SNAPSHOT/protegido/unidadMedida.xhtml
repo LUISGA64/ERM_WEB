@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <h:outputStylesheet name="css/index.css"/>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                <p:panel id="pundmed" header="Unidad Medida Medicamentos">
+                    <h:form id="frmundmed">
+                        <p:toolbar id="tlbund" style="background-color: #D20005">
+                            <f:facet name="left" rendered="true">
+                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" style="font-size: 16px" oncomplete="PF('wdlgundmed').show();" />
+                            </f:facet>
+                        </p:toolbar>
+                        <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros  -->
+                        <p:contextMenu for="tblundmed">
+                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" actionListener="#{unidadMedidaController.eliminar}" update=":frmundmed:tblundmed" />
+                        </p:contextMenu>
+                        <p:dataTable
+                            currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                            draggableRows="true"
+                            editable="true"
+                            emptyMessage="Sin Registros"
+                            filteredValue="#{unidadMedidaController.lstundmed}"
+                            id="tblundmed"
+                            paginator="true"
+                            paginatorPosition="bottom"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rows="10"
+                            rowKey="#{undmed.idUnd}"
+                            rowsPerPageTemplate="5,10,15"
+                            selection="#{unidadMedidaController.selundmed}"
+                            selectionMode="single"
+                            style="font-size: 16px"
+                            value="#{unidadMedidaController.lstundmed}"
+                            var="undmed"
+                            widgetVar="unm"
+                            >
+                            <!-- Ajax es el evento que permmite realizar la edicion del registro -->
+                            <p:ajax event="rowEdit" listener="#{unidadMedidaController.editar}" update=":frmundmed:tblundmed" />
+                            <p:column headerText="Codigo" filterBy="#{undmed.codUnd}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{undmed.codUnd}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{undmed.codUnd}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Unidad Medida" filterBy="#{undmed.desUnd}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{undmed.desUnd}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{undmed.desUnd}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column style="width: 25px">
+                                <p:rowEditor/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                    <!-- Cuadro de dialogo para el registro de una nueva unidad de medida  -->
+                    <p:dialog id="dlgundmed" header="Unidad Medida" widgetVar="wdlgundmed" modal="true" closeOnEscape="true" resizable="false" showEffect="explode">
+                        <h:form>
+                            <h:panelGrid columns="2" cellpadding="6">
+                                <p:outputLabel value="Codigo" for="codund"/>
+                                <p:inputText id="codund" value="#{unidadMedidaController.unidadmedida.codUnd}" required="true" requiredMessage="Codigo Requerido" />
+                                <p:outputLabel for="desund" value="Unidad Medida"/>
+                                <p:inputText id="desund" value="#{unidadMedidaController.unidadmedida.desUnd}" required="true" requiredMessage="Especialidad Requerida"/>
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{unidadMedidaController.registrar()}" oncomplete="PF('wdlgundmed').hide();" update=":frmundmed:tblundmed" >
+                                    <p:ajax resetValues="true" update=":frmundmed:tblundmed" />
+                                </p:commandButton>
+                                <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgundmed').hide();" resetValues="true" />
+                            </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

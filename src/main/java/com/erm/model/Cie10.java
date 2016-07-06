@@ -2,7 +2,9 @@
 package com.erm.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -26,6 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cie10.findByDesCie10", query = "SELECT c FROM Cie10 c WHERE c.desCie10 = :desCie10"),
     @NamedQuery(name = "Cie10.findByAlerta", query = "SELECT c FROM Cie10 c WHERE c.alerta = :alerta")})
 public class Cie10 implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCie10")
+    private List<Historia> historiaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -117,6 +124,15 @@ public class Cie10 implements Serializable {
     @Override
     public String toString() {
         return "com.erm.model.Cie10[ idcie10=" + idcie10 + " ]";
+    }
+
+    @XmlTransient
+    public List<Historia> getHistoriaList() {
+        return historiaList;
+    }
+
+    public void setHistoriaList(List<Historia> historiaList) {
+        this.historiaList = historiaList;
     }
     
 }

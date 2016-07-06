@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+                <h:form id="formactividades">
+                    <p:toolbar style="background-color: yellowgreen; margin-top: 5px; margin-bottom: 10px">
+                        <f:facet name="left">
+                            <p:commandButton value="Nuevo" icon="fa fa-fw fa-plus-circle" oncomplete="PF('wdlgactividades').show();" style="font-size: 16px" />
+                        </f:facet>
+                    </p:toolbar>
+                    <p:dataTable
+                        id="tblactividades"
+                        value="#{actividadesController.lstactividades}"
+                        var="acti"
+                        rowKey="#{acti.idactividad}"
+                        paginator="true"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15" 
+                        currentPageReportTemplate="Página: ({currentPage} de {totalPages})" 
+                        editable="true"
+                        paginatorPosition="bottom"
+                        emptyMessage="No hay coincidencias"
+                        style="font-size: 16px">
+
+                        <p:column headerText="Codigo CUPS" filterBy="#{acti.codActividad}" filterMatchMode="contains" style="width: 130px">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{acti.codActividad}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{acti.codActividad}"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Descripción Actividad" filterBy="#{acti.desActividad}" filterMatchMode="contains" >
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{acti.desActividad}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{acti.desActividad}" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Tipo Actividad" style="width: 170px" filterBy="#{acti.idtipActividad.destipActividad}" filterMatchMode="contains" >
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{acti.idtipActividad.destipActividad}"/></f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{acti.idtipActividad}" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItems value="#{tipoactividadController.lsttipoactividad}" var="tipact" itemLabel="#{tipact.destipActividad}" itemValue="#{tipact}"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column style="width:32px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog id="dlgactividades" widgetVar="wdlgactividades" header="Registrar Actividades" modal="true" closeOnEscape="true" resizable="false" showEffect="explode">
+                        <h:form>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="CUPS" for="cup"/>
+                                <p:inputText id="cup" value="#{actividadesController.actividades.codActividad}" required="true" requiredMessage="Codigo Obligatorio"/>
+                                
+                                <p:outputLabel value="Descripción" for="desact"/>
+                                <p:inputText id="desact" value="#{actividadesController.actividades.desActividad}" required="true" requiredMessage="Descripcion requerido" style="width: 800px"/>
+                                <p:outputLabel value="Tipo Actividad" />
+                                <p:selectOneMenu id="somactividad" value="#{actividadesController.actividades.idtipActividad}" converter="omnifaces.SelectItemsConverter" style="width: 180px" required="true" requiredMessage="Dato Requerido">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="null" noSelectionOption="true" />
+                                    <f:selectItems value="#{tipoactividadController.lsttipoactividad}" var="tp" itemLabel="#{tp.destipActividad}" itemValue="#{tp}" />
+                                </p:selectOneMenu>
+                                <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{actividadesController.registrar()}" oncomplete="PF('wdlgactividades').hide();" update=":formactividades:tblactividades" />
+                                <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgactividades').hide();" />
+                            </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

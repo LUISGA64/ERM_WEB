@@ -1,0 +1,11 @@
+
+.botones{
+    background-image: url('../images/PDF.png');
+    width: 250px
+}
+
+.pdf-icon{
+    background-image: url(../images/PDF.png)!important;
+    color: yellowgreen;
+    width: 100px
+}

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <h:outputStylesheet library="css" name="/index.css"/>
+            <h:outputStylesheet name="css/botones.css"/>
+            <ui:define name="content">
+                <p:growl autoUpdate="true"/>
+                <h:form id="frmmenu" style="width: 1200px; background-color: #A7CCC9; margin: auto">
+                    <h:panelGrid columns="4" cellspacing="10px" style="background: transparent; margin: auto " >
+                        <h:commandLink >
+                            <p:panel style="background: transparent; border: transparent">
+                                <h:graphicImage url="../resources/images/config.png" style="width: 200px; box-shadow: 3px 5px 3px 3px dimgrey"  />
+                            </p:panel>
+                        </h:commandLink>
+                        <h:commandLink >
+                            <p:panel style="background: transparent; border: transparent">
+                                <h:graphicImage url="../resources/images/verde.png" style="width: 200px; box-shadow: 3px 5px 3px 3px dimgrey" onclick="PF('wpr').show();" />
+                            </p:panel>
+                        </h:commandLink>
+                        <h:commandLink >
+                            <p:panel style="background: transparent; border: transparent">
+                                <h:graphicImage url="../resources/images/medicamentos.png" style="width: 200px; box-shadow: 3px 5px 3px 3px dimgrey" onclick="PF('wpr').show();" />
+                            </p:panel>
+                        </h:commandLink>
+                        <h:commandLink >
+                            <p:panel style="background: transparent; border: transparent">
+                                <h:graphicImage url="../resources/images/medico.png" style="width: 200px; box-shadow: 3px 5px 3px 3px dimgrey" onclick="PF('wpr').show();" />
+                            </p:panel>
+                        </h:commandLink>
+                        <h:commandLink >
+                            <p:panel style="background: transparent; border: transparent" >
+                                <h:graphicImage url="../resources/images/conf.png" style="width: 200px; box-shadow: 3px 5px 3px 3px dimgrey; background: transparent" onclick="PF('wpr').show();" />
+                            </p:panel>
+                        </h:commandLink>
+                    </h:panelGrid>
+                </h:form>
+                <h:form>
+                    <p:dialog header="Prueba" id="pr" widgetVar="wpr">
+                        <h1>Prueba</h1>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

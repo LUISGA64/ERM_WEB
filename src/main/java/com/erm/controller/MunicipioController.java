@@ -1,4 +1,3 @@
-
 package com.erm.controller;
 
 import com.erm.ejb.MunicipioFacadeLocal;
@@ -17,21 +16,20 @@ import org.primefaces.event.RowEditEvent;
 
 @Named
 @ViewScoped
-public class MunicipioController implements Serializable{
-    
+public class MunicipioController implements Serializable {
+
     @EJB
     private MunicipioFacadeLocal municipioEJB;
     private List<Municipio> lstmunicipio;
     private Municipio selmun;
-    
-    
+
     @Inject
     private Municipio municipio;
     @Inject
     private Departamento departamento;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         lstmunicipio = municipioEJB.findAll();
     }
     //Getter && Setter
@@ -67,19 +65,19 @@ public class MunicipioController implements Serializable{
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
- 
-    public void registrar(){
-         try {
+
+    public void registrar() {
+        try {
             municipioEJB.create(municipio);
             lstmunicipio = municipioEJB.findAll();
-             System.out.println("Municipio: "+"Codigo: "+municipio.getCodigoMpio()+" Descripcio: "+municipio.getDesMpio()+" Departamento: "+municipio.getIddepartamento());
+            System.out.println("Municipio: " + "Codigo: " + municipio.getCodigoMpio() + " Descripcio: " + municipio.getDesMpio() + " Departamento: " + municipio.getIddepartamento());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Municipio", "Registro Exitoso."));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Municipio", "Registro Falló."));
         }
     }
-    
-    public void editar(RowEditEvent event){
+
+    public void editar(RowEditEvent event) {
         Municipio mun1 = (Municipio) event.getObject();
         Municipio mun2 = municipioEJB.find(mun1.getIdMunicipio());
         mun2.setCodigoMpio(mun1.getCodigoMpio());
@@ -88,18 +86,15 @@ public class MunicipioController implements Serializable{
         municipioEJB.edit(mun2);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERM - Municipio", "Registro Modificado."));
     }
-    
-    public void eliminar(){
-        try
-        {
-           municipioEJB.remove(selmun);
-           selmun = null;
-           lstmunicipio = municipioEJB.findAll();
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Municipio", "Registro Eliminado "));
-        }
-        catch(Exception e)
-        {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Municipio", "Registro No Eliminado "+e));
+
+    public void eliminar() {
+        try {
+            municipioEJB.remove(selmun);
+            selmun = null;
+            lstmunicipio = municipioEJB.findAll();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Municipio", "Registro Eliminado "));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ERM- Municipio", "Registro No Eliminado " + e));
         }
     }
 }

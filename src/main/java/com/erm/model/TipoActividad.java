@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.erm.model;
 
 import java.io.Serializable;
@@ -20,10 +16,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author luisgabriel
- */
+
 @Entity
 @Table(name = "tipo_actividad")
 @XmlRootElement
@@ -47,7 +40,7 @@ public class TipoActividad implements Serializable {
     private String codtipoActividad;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 15)
+    @Size(min = 1, max = 25)
     @Column(name = "destip_actividad")
     private String destipActividad;
     @OneToMany(mappedBy = "idtipActividad")

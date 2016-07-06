@@ -13,23 +13,13 @@
                     <h:form id="frmf">
                         <p:toolbar style="background-color: yellowgreen; margin-top: 5px; margin-bottom: 10px">
                             <f:facet name="left">
-<<<<<<< HEAD
-                                <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgfrmf').show();" resetValues="wdlgfrmf" style="font-size: 16px"/>
-=======
                                 <p:commandButton value="Nuevo" icon="ui-icon-plusthick" oncomplete="PF('wdlgfrmf').show();" resetValues="wdlgfrmf" style="font-size: 16px" update="formnuevo"/>
->>>>>>> refs/remotes/origin/desarrollo
                             </f:facet>
                         </p:toolbar>
                         <!-- CONTEXTMENU agrega la funcionalidad de eliminar registros -->
                         <p:contextMenu for="tblfrmf">
-<<<<<<< HEAD
-                            <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px">
-                                <p:confirm header="Eliminar" message="¿Eliminar Registro?" icon="fa fa-fw fa-times-circle" />
-                            </p:menuitem>
-=======
                             <p:menuitem value="Eliminar" icon="fa fa-fw fa-trash-o" style="font-size: 11px" action="#{formaFarmaceuticaController.eliminar}" update=":frmf:tblfrmf" />
                             
->>>>>>> refs/remotes/origin/desarrollo
                         </p:contextMenu>                        
                         <p:dataTable 
                             id="tblfrmf" 
@@ -47,20 +37,12 @@
                             draggableRows="true"
                             emptyMessage="Sin Registros"
                             editable="true"
-<<<<<<< HEAD
-                            widgetVar="dpto"
-=======
                             widgetVar="formafarma"
->>>>>>> refs/remotes/origin/desarrollo
                             >
                             <!-- Ajax es el evento que actualizara los datos de la tabla -->
                             <p:ajax event="rowEdit" listener="#{formaFarmaceuticaController.editar}" update=":frmf:tblfrmf" />
                             <!-- Columnas de la Tabla  -->
-<<<<<<< HEAD
-                            <p:column headerText="Codigo" style="width:70px" filterBy="#{ff.codFormaFarma}" filterMatchMode="exact">
-=======
                             <p:column headerText="Codigo" style="width:110px" filterBy="#{ff.codFormaFarma}" filterMatchMode="exact">
->>>>>>> refs/remotes/origin/desarrollo
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{ff.codFormaFarma}" /></f:facet>
                                     <f:facet name="input"><p:inputText value="#{ff.codFormaFarma}" /></f:facet>
@@ -91,11 +73,7 @@
                             </h:panelGrid>
                         </h:form>
                         <!-- Diaologo de confirmacion -->
-<<<<<<< HEAD
-                        <h:form>
-=======
                         <h:form id="formnuevo">
->>>>>>> refs/remotes/origin/desarrollo
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                 <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" action="#{formaFarmaceuticaController.eliminar}" update=":frmf:tblfrmf" />
                                 <p:commandButton value="No" styleClass="ui-confirmdialog-no" type="button"/>

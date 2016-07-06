@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Agenda.findByFechaCita", query = "SELECT a FROM Agenda a WHERE a.fechaCita = :fechaCita"),
     @NamedQuery(name = "Agenda.findByEstadoCita", query = "SELECT a FROM Agenda a WHERE a.estadoCita = :estadoCita"),
     @NamedQuery(name = "Agenda.findByCitaAtendida", query = "SELECT a FROM Agenda a WHERE a.citaAtendida = :citaAtendida")})
-public class Agenda implements Serializable {
+public class Agenda implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -156,10 +156,7 @@ public class Agenda implements Serializable {
             return false;
         }
         Agenda other = (Agenda) object;
-        if ((this.idAgenda == null && other.idAgenda != null) || (this.idAgenda != null && !this.idAgenda.equals(other.idAgenda))) {
-            return false;
-        }
-        return true;
+        return !((this.idAgenda == null && other.idAgenda != null) || (this.idAgenda != null && !this.idAgenda.equals(other.idAgenda)));
     }
 
     @Override
@@ -168,5 +165,11 @@ public class Agenda implements Serializable {
     }
     
     
-   
+    public Agenda clonar() throws CloneNotSupportedException{
+        return (Agenda) this.clone();
+    }
+    
+    public int compararfechacita (Date fecha_comparar){
+        return this.fechaCita.compareTo(fecha_comparar);
+    }
 }

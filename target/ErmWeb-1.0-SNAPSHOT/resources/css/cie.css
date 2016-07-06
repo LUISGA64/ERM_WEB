@@ -1,0 +1,38 @@
+#bdcie{
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    top: 30px;
+}
+
+#dpto{
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    top: 30px;
+    background-color: floralwhite;
+}
+
+#mpio,#ocp{
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    top: 30px;
+    background-color: floralwhite;
+}
+#bdper{
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    top: 30px;
+    background-color: floralwhite;
+    font-size: 14px;
+}
+#bdmed{
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    top: 30px;
+    background-color: floralwhite;
+    font-size: 14px;
+}

@@ -45,6 +45,7 @@ public class IndexController implements Serializable {
                     RequestContext context = RequestContext.getCurrentInstance();
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
                     redirect = "/protegido/menu?faces-redirect=true";
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "" + us.getIdrol().getRol()));
                     System.out.println("\n" + "Usuario: " + us.getUsuario() + "\n" + "Rol: " + us.getIdrol().getRol() + "\n" + "Estado: " + us.getEstado());
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "" + us.getIdrol().getRol()));
                 }
@@ -71,7 +72,7 @@ public class IndexController implements Serializable {
 
     }
 
-    /*Mesajes*/
+    /*Mensajes*/
     public void errorUsuario() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Registre Usuario"));
     }

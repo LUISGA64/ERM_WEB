@@ -9,8 +9,8 @@
     <body>
 
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
-
             <ui:define name="content">
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
                 <h:form>
                     <p:toolbar>
                         <f:facet name="left">Agenda Médica</f:facet>
@@ -35,6 +35,7 @@
                         <p:commandButton value="Guardar" icon="fa fa-fw fa-plus-circle" action="#{agendaController.registrar()}" update="frmcitas:tblcitas" />
                         <p:commandButton value="Cancelar" icon="fa fa-fw fa-close" immediate=""/>
                     </p:panel>
+                    </h:form>
                     <h:form id="frmcitas">
                         <p:dataTable 
                             id="tblcitas"
@@ -43,7 +44,7 @@
                             style="font-size: 14px"
                             rowKey="#{cita.idAgenda}"
                             >
-                            <p:column headerText="Fecha" style="width: 200px">
+                            <p:column headerText="Fecha Cita" style="width: 200px">
                                 <h:outputText value="#{cita.fechaCita}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
@@ -58,7 +59,7 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
-                </h:form>
+                
             </ui:define>
         </ui:composition>
     </body>

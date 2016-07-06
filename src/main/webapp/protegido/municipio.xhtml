@@ -79,10 +79,15 @@
                                 <p:outputLabel for="desmpio" value="Municipio"/>
                                 <p:inputText id="desmpio" value="#{municipioController.municipio.desMpio}" required="true" requiredMessage="Departamento Requerido"/>
                                 <p:outputLabel for="sompio" value="Departamento"/>
+                                
+                                
                                 <p:selectOneMenu id="sompio" value="#{municipioController.municipio.iddepartamento}" converter="omnifaces.SelectItemsConverter" style="width: 180px" required="true" requiredMessage="Departamento Requerido">
-                                    <f:selectItem itemLabel="Seleccione.." itemValue="null" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Seleccione" itemValue="null" noSelectionOption="true"/>
                                     <f:selectItems value="#{departamentoController.lstdepartamento}" var="dpto" itemLabel="#{dpto.desDpto}" itemValue="#{dpto}"/>
                                 </p:selectOneMenu>
+                                
+                                
+                                
                                 <p:commandButton value="Registrar" icon="ui-icon-plusthick" actionListener="#{municipioController.registrar()}" oncomplete="PF('wdlgmpio').hide();" update=":frmmpio:tblmpio"/>
                                 <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdlgmpio').hide();" />
                             </h:panelGrid>

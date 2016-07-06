@@ -68,7 +68,6 @@ public class UsuarioController implements Serializable {
         this.rol = rol;
     }
     
-    
     public void registrar() {
         try {
             usuarioEJB.create(usuario);

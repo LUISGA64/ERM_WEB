@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <body>
+        <h:outputStylesheet name="css/index.css"/>
+        <ui:composition template="./../WEB-INF/templates/historia.xhtml">
+            <ui:define name="left">
+                <h:form >
+                    <h:panelGrid columns="2" style="position: static">
+                        <p:tabMenu >
+                            <p:menuitem value="Anamnesis" style=" width: 100px; margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px"  />
+                            <p:menuitem value="Signos Vitales" style=" width: 100px; margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px" oncomplete="PF('wdlgdpto').show();" />
+                            <p:menuitem value="Evolución" style=" width: 100px; margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px" oncomplete="PF('wdlgdpto').show();" />
+                            <p:menuitem value="Diagnóstico" style=" width: 100px; margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px" oncomplete="PF('wdlgdpto').show();" />
+                        </p:tabMenu>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+            <ui:define name="content">
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                <h:form id="formhistoria" >
+                    <p:panel style="color: #036fab; height: 50px">
+                        <h:panelGrid id="panelgdatos" columns="3" >
+                            <p:outputLabel value="Paciente" />
+                        </h:panelGrid>
+                    </p:panel><br/>
+
+                    <p:accordionPanel activeIndex="" dynamic="true" cache="true" widgetVar="panelhistoria" id="historia" multiple="false" style="width: 1130px; margin-left: 15px" >
+                        <p:ajax event="tabClose" listener="#{historiaController.onTabClose}" />
+                        <p:ajax event="tabChange" listener="#{historiaController.onTabChange}" />
+                        <p:tab title="Anamnesis" id="anamnesis" closable="true"  >
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Motivo de Consulta" />
+                                <p:inputTextarea value="#{historiaController.historia.motivoConsulta}" style="width: 1050px; font-size: 16px" autoResize="true" />
+                                <p:outputLabel value="Enfermedad Actual" />
+                                <p:inputTextarea value="#{historiaController.historia.enfermedadActual}" style="width: 1050px; font-size: 16px" autoResize="true" />
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Signos Vitales" closable="true" >
+                            <p:panelGrid columns="1" style="font-size: 12px">
+                                <p:row>
+                                    <p:outputLabel value="Peso:" style="margin-right: 15px" />
+                                    <p:inputText value="#{historiaController.historia.peso}" style="width: 45px" />
+                                    <p:outputLabel value="Kg" style="margin-left: 10px" />
+                                </p:row>
+                                <p:row>
+                                    <p:outputLabel value="Talla:" style="margin-right: 15px" />
+                                    <p:inputText value="#{historiaController.historia.talla}" style="width: 45px" />
+                                    <p:outputLabel value="Cms" style="margin-left: 10px" />
+                                </p:row>
+                                <p:row>
+                                    <p:outputLabel value="Temperatura:" style="margin-right: 15px" />
+                                    <p:inputText value="#{historiaController.historia.temperatura}" style="width: 45px" />
+                                    <p:outputLabel value="°C" style="margin-left: 10px" />
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Presión Arterial:" style="margin-right: 15px" />
+                                        <p:inputText value="#{historiaController.historia.presionSistolica}" style="width: 45px" />
+                                        <p:outputLabel value=" mm de Hg" />
+                                        <p:inputText value="#{historiaController.historia.presionDiastolica}" style="width: 45px; margin-left: 7px" />
+                                    </p:column>
+                                </p:row>                               
+                                <p:row>
+                                    <p:outputLabel value="Frecuencia Cardiaca:" style="margin-right: 15px" />
+                                    <p:inputText value="#{historiaController.historia.frecuenciaCardiaca}" style="width: 45px" />
+                                    <p:outputLabel value="Lpm" style="margin-left: 10px;" />
+                                </p:row>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab title="Evolucion"  closable="true">
+                            <p:outputLabel value="Evolución" style="margin-right: 15px" />
+                            <p:inputTextarea value="#{historiaController.historia.evolucion}" style="width: 1050px; font-size: 16px" autoResize="true" />
+                        </p:tab>
+                        <p:tab title="Diagnóstico" closable="true" >
+                            <p:outputLabel value="Principal" style="" />
+                            <p:autoComplete id="dx" value="#{cie10Controller.lstcie10}"  var="dx" itemValue="#{dx.desCie10}"/>
+
+                            <p:selectOneMenu value="#{historiaController.historia.idCie10}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains" style="width: 400px">
+                                <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="Seleccione" />
+                                <f:selectItems value="#{cie10Controller.lstcie10}" var="cie" itemLabel="#{cie.codCie10} - #{cie.desCie10}" itemValue="#{cie}" />
+                            </p:selectOneMenu>
+                        </p:tab>
+                    </p:accordionPanel>
+                    <p:fieldset legend="Formulación de Medicamentos" style="margin-top: 10px; width: 1100px; margin-left: 15px" >
+                        <p:panelGrid columns="6" >
+                            <p:row >
+                                <p:column>
+                                    <p:selectOneMenu>
+                                        <f:selectItem itemLabel="Medicamentos" itemValue="#{null}" noSelectionOption="true" />
+                                        <f:selectItems value="#{medicamentoController.setListarmedicamentos(listarmedicamentos)}" var="medic" itemValue="#{medic.producto}" itemLabel="#{medic}" />
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+                </h:form>
+                <p:dialog id="dlgdpto" header="Signos Vitales" widgetVar="wdlgdpto" modal="true" closeOnEscape="true" resizable="false" showEffect="explode" >
+                    <h:form id="frmnd">
+                        <p:panelGrid columns="1">
+                            <p:row>
+                                <p:outputLabel value="Peso:" style="margin-right: 15px" />
+                                <p:inputText value="#{historiaController.historia.peso}" style="width: 45px" />
+                                <p:outputLabel value="Kg" style="margin-left: 10px" />
+                            </p:row>
+                            <p:row>
+                                <p:outputLabel value="Talla:" style="margin-right: 15px" />
+                                <p:inputText value="#{historiaController.historia.talla}" style="width: 45px" />
+                                <p:outputLabel value="Cms" style="margin-left: 10px" />
+                            </p:row>
+                            <p:row>
+                                <p:outputLabel value="Temperatura:" style="margin-right: 15px" />
+                                <p:inputText value="#{historiaController.historia.temperatura}" style="width: 45px" />
+                                <p:outputLabel value="°C" style="margin-left: 10px" />
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Presión Arterial:" style="margin-right: 15px" />
+                                    <p:inputText value="#{historiaController.historia.presionSistolica}" style="width: 45px" />
+                                    <p:outputLabel value=" mm de Hg" />
+                                    <p:inputText value="#{historiaController.historia.presionDiastolica}" style="width: 45px; margin-left: 7px" />
+                                </p:column>
+                            </p:row>                               
+                            <p:row>
+                                <p:outputLabel value="Frecuencia Cardiaca:" style="margin-right: 15px" />
+                                <p:inputText value="#{historiaController.historia.frecuenciaCardiaca}" style="width: 45px" />
+                                <p:outputLabel value="Lpm" style="margin-left: 10px;" />
+                            </p:row>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

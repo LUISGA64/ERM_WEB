@@ -49,6 +49,8 @@ public class Medico implements Serializable {
     @Lob
     @Column(name = "firma")
     private byte[] firma;
+    @OneToMany(mappedBy = "idMedico")
+    private List<Historia> historiaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
     private List<Agenda> agendaList;
 
@@ -214,13 +216,6 @@ public class Medico implements Serializable {
         return "com.erm.model.Medico[ idmedico=" + idmedico + " ]";
     }
 
-    public byte[] getFirma() {
-        return firma;
-    }
-
-    public void setFirma(byte[] firma) {
-        this.firma = firma;
-    }
 
     @XmlTransient
     public List<Agenda> getAgendaList() {
@@ -229,6 +224,24 @@ public class Medico implements Serializable {
 
     public void setAgendaList(List<Agenda> agendaList) {
         this.agendaList = agendaList;
+    }
+
+
+    @XmlTransient
+    public List<Historia> getHistoriaList() {
+        return historiaList;
+    }
+
+    public void setHistoriaList(List<Historia> historiaList) {
+        this.historiaList = historiaList;
+    }
+
+    public byte[] getFirma() {
+        return firma;
+    }
+
+    public void setFirma(byte[] firma) {
+        this.firma = firma;
     }
     
 }

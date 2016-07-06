@@ -11,7 +11,7 @@
                 <p:growl id="messages" showDetail="true" autoUpdate="true" sticky="true" life="25" />
                 <p:panel id="panel" header="Personal Asistencial">
                     <h:form id="frmmed">
-                        <p:commandButton value="Registrar" actionListener="#{medicoController.registrar()}" update=":frmmed2:dtmed" />
+                        <p:commandButton value="Registrar" actionListener="#{medicoController.registrar}" update=":frmmed2:dtmed" />
                         <br/><br/>
                         <p:fieldset id="fsmed" legend="Datos Personales" style="font-size: 13px">
                             <center> <h:panelGrid columns="8" cellpadding="4" cellspacing="3">

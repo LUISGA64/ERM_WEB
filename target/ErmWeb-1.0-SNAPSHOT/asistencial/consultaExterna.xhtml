@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      >
+    <body>
+        <ui:composition template="./../WEB-INF/templates/asistencial.xhtml">
+            <h:outputStylesheet name="css/index.css"/>
+            <ui:define name="content">
+                <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                <h:form id="user" >   
+                    <p:toolbar >
+                        <f:facet name="left">Agenda Médica</f:facet>
+                    </p:toolbar><br/>
+                    <p:commandButton process="agenda" update=":form:paneldatos" value="Atender" oncomplete="PF('wusuario').show()" style="margin-bottom: 10px; margin-left: 175px; width: 125px; height: 40px; font-size: 19px; box-shadow: 1px 3px 0px 1px #AFAFAF" />
+                    <p:dataTable 
+                        id="agenda" 
+                        paginator="true" 
+                        paginatorPosition="botton" 
+                        value="#{agendaController.lstagenda}"
+                        selectionMode="single"
+                        rowKey="#{cta.idAgenda}"
+                        selection="#{agendaController.selagenda}"
+                        var="cta"
+                        style="font-size: 12px; width: 1000px; margin: 0 auto; box-shadow: 6px 6px 15px 3px #AFAFAF; margin-bottom: 20px"
+                        >
+                        <p:column headerText="Hora" width="15%">
+                            <h:outputText value="#{cta.hora}">
+                                <f:convertDateTime type="time"  pattern="h:mm a" dateStyle="full" timeZone="America/Bogota" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column width="15%">
+                            <h:outputText value="#{cta.fechaCita}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Paciente" >
+                            <h:outputText value="#{cta.idPaciente.nombre1} #{cta.idPaciente.nombre2} #{cta.idPaciente.apellido1} #{cta.idPaciente.apellido2}" />
+                        </p:column>
+
+                        <f:facet name="footer" >
+                            <p:button outcome="/asistencial/historia" value="Atender" />
+                        </f:facet>
+                        <!--<f:facet name="footer">
+                           <p:commandButton process="agenda" update=":form:userpane" value="cita" oncomplete="PF('wusuario').show()"   />
+                        </f:facet> -->
+                    </p:dataTable>
+                </h:form>
+                <h:form id="form" >
+                    <p:dialog  header="Consulta Externa" widgetVar="wusuario" modal="true" showEffect="fade" hideEffect="fade" resizable="true" closeOnEscape="true" width="1200px" dynamic="true">
+                        <p:panel id="paneldatos" style="width: 1100px; margin-top: 5px; margin: initial" >
+                            <h:panelGrid id="panelgriddatos" columns="6" rendered="#{not empty agendaController.selagenda}" cellspacing="2px" cellpadding="5px" >
+                                <h:outputText value="Paciente:" style="font-size: 18px; font-weight: bolder; color: #036fab " />
+                                <h:outputText value="#{agendaController.selagenda.idPaciente.nombre1} #{agendaController.selagenda.idPaciente.nombre2} #{agendaController.selagenda.idPaciente.apellido1} #{agendaController.selagenda.idPaciente.apellido2}" style="font-size: 14px; margin-left: 3px" />
+                                <h:outputText value="Identificacion:" style="font-size: 18px; font-weight: bolder; color: #036fab"  />
+                                <h:outputText value="#{agendaController.selagenda.idPaciente.tipoDoc.codoc} #{agendaController.selagenda.idPaciente.identificacion}" style="font-size: 14px" />
+                                <h:outputText value="Sexo:" style="font-size: 18px; font-weight: bolder; color: #036fab " />
+                                <h:outputText value="#{agendaController.selagenda.idPaciente.sexo}" style="font-size: 14px" />
+                                <h:outputText value="Fecha Nacimiento:" style="font-size: 18px; font-weight: bolder; color: #036fab " />
+                                <h:outputText value="#{agendaController.selagenda.idPaciente.fechaNac}" style="font-size: 14px " >
+                                    <f:convertDateTime type="date"  pattern="dd/MM/yyyy" timeZone="America/Bogota" />
+                                </h:outputText>
+                                <h:outputText value="Edad:" style="font-size: 18px; font-weight: bolder; color: #036fab " />
+                                <h:outputText value="#{agendaController.selagenda.idPaciente.edad} #{agendaController.selagenda.idPaciente.medidaEdad.desUndmedida}" style="font-size: 14px" />
+                                <h:outputText value="Teléfono:" style="font-size: 18px; font-weight: bolder; color: #036fab " />
+                                <h:outputText value="#{agendaController.selagenda.idPaciente.telefono}" style="font-size: 14px" />
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:layout style="width: 1100px; height: 400px; margin-top: 5px">
+                            <p:layoutUnit position="west" resizable="false" size="150" >
+                                <h:form>
+                                    <h:panelGrid columns="1">
+                                        <p:row>
+                                            <p:commandButton value="Guardar" style="position: relative; margin-left: 5px; margin-right: 5px; width: 120px" actionListener="#{agendaController.registrar()}" />
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:commandButton value="Imprimir" style="position: relative; margin-left: 5px; margin-right: 5px; width: 120px" />
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:commandButton value="Cancelar" style="position: relative; margin-left: 5px; margin-right: 5px; width: 120px" />
+                                        </p:row>
+                                    </h:panelGrid>
+                                </h:form>
+                            </p:layoutUnit>
+                            <p:layoutUnit position="center" resizable="false" size="1200" >
+                                <h:form id="atencion">
+                                    <p:accordionPanel activeIndex="" dynamic="true" cache="true" widgetVar="panelhistoria" id="historia" multiple="false" style="width: 910px; margin-left: 5px; font-size: 14px" >
+                                        <p:ajax event="tabClose" listener="#{historiaController.onTabClose}" />
+                                        <p:ajax event="tabChange" listener="#{historiaController.onTabChange}" />
+                                        <p:tab title="Anamnesis" id="anamnesis" closable="true"  >
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Motivo de Consulta" style="font-size: 14px; font-weight: bolder; color: #036fab" />
+                                                <p:inputTextarea value="#{historiaController.historia.motivoConsulta}" style=" margin-right: 30px; width: 780px; font-size: 14px" autoResize="true" />
+                                                <p:outputLabel value="Enfermedad Actual" style="font-size: 14px; font-weight: bolder; color: #036fab" />
+                                                <p:inputTextarea value="#{historiaController.historia.enfermedadActual}" style="width: 780px; font-size: 14px" autoResize="true" />
+                                            </h:panelGrid>
+                                        </p:tab>
+                                        <p:tab title="Signos Vitales" closable="true" >
+                                            <p:panelGrid columns="1" style="font-size: 14px">
+                                                <p:row>
+                                                    <p:outputLabel for="peso" value="Peso:" style="margin-right: 15px"  />
+                                                    <p:inputText id="peso" value="#{historiaController.historia.peso}" style="width: 45px" required="true" requiredMessage="#{agendaController.peso()}" />
+                                                    <p:outputLabel value="Kg" style="margin-left: 10px" />
+                                                </p:row>
+                                                <p:row>
+                                                    <p:outputLabel for="talla" value="Talla:" style="margin-right: 15px" />
+                                                    <p:inputText id="talla" value="#{historiaController.historia.talla}" style="width: 45px" required="true" />
+                                                    <p:outputLabel value="Cms" style="margin-left: 10px" />
+                                                </p:row>
+                                                <p:row>
+                                                    <p:outputLabel for="temp" value="Temperatura:" style="margin-right: 15px" />
+                                                    <p:inputText id="temp" value="#{historiaController.historia.temperatura}" style="width: 45px" required="true" requiredMessage="" />
+                                                    <p:outputLabel value="°C" style="margin-left: 10px" />
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:outputLabel for="PresAr" value="Presión Arterial:" style="margin-right: 15px" />
+                                                        <p:inputText id="PresAr" value="#{historiaController.historia.presionSistolica}" style="width: 45px" required="true" />
+                                                        <p:outputLabel value=" mm de Hg" />
+                                                        <p:inputText value="#{historiaController.historia.presionDiastolica}" style="width: 45px; margin-left: 7px" />
+                                                    </p:column>
+                                                </p:row>                               
+                                                <p:row>
+                                                    <p:outputLabel for="frecar" value="Frecuencia Cardiaca:" style="margin-right: 15px"  />
+                                                    <p:inputText id="frecar" required="true" value="#{historiaController.historia.frecuenciaCardiaca}" style="width: 45px" />
+                                                    <p:outputLabel value="Lpm" style="margin-left: 10px;" />
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:tab>
+                                        <p:tab title="Evolucion"  closable="true">
+                                            <p:outputLabel value="Evolución" style="font-size: 14px; font-weight: bolder; color: #036fab" />
+                                            <p:inputTextarea value="#{historiaController.historia.evolucion}" style=" margin-right: 30px; width: 780px; font-size: 14px" autoResize="true" />
+                                        </p:tab>
+                                        <p:tab title="Diagnóstico" closable="true" >
+                                            <h:panelGrid columns="1">
+                                                 <p:outputLabel value="Diagnóstico Principal" style="font-size: 14px; font-weight: bolder; color: #036fab"/>
+                                            <p:selectOneMenu class="selOne"  value="#{historiaController.historia.idCie10}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains" style="width: 450px; margin-left: 15px; font-size: 14px">
+                                                <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="Seleccione" />
+                                                <f:selectItems class="selectitems" value="#{cie10Controller.lstcie10}" var="cie" itemLabel="#{cie.codCie10} - #{cie.desCie10}" itemValue="#{cie}" />
+                                            </p:selectOneMenu>
+                                                 
+                                                 <!-- Causa Externa  -->
+                                                 <p:outputLabel value="Causa Externa" style="font-size: 14px; font-weight: bolder; color: #036fab"/>
+                                                 <p:selectOneMenu value="#{historiaController.historia.causExterna}" converter="omnifaces.SelectItemsConverter" style="width: 360px; margin-left: 15px; font-size: 14px" >
+                                                     <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="Seleccione" />
+                                                     <f:selectItems value="#{cauxsExternaController.lstcauexter}" var="caux" itemLabel="#{caux.codCauxt}" itemValue="#{caux}" />
+                                                 </p:selectOneMenu>
+                                                 <!-- Finalidad Consulta  -->
+                                                 <p:outputLabel value="Finalidad Consulta" style="font-size: 14px; font-weight: bolder; color: #036fab"/>
+                                                 <p:selectOneMenu value="#{historiaController.historia.finalidadCx}" converter="omnifaces.SelectItemsConverter" style="width: 360px; margin-left: 15px; font-size: 14px" >
+                                                     <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="Seleccione" />
+                                                     <f:selectItems value="#{finalidadCxController.lstfinalidadcx}" var="fincx" itemLabel="#{fincx.finalidadCx}" itemValue="#{fincx}" />
+                                                 </p:selectOneMenu>
+                                            <!-- Diagnostico Relacionado  -->
+                                            <p:outputLabel value="Diagnóstico Relacionado" style="font-size: 14px; font-weight: bolder; color: #036fab" />
+                                            <p:selectOneMenu class="selOne"  value="#{historiaController.historia.idCie10}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains" style="width: 450px; margin-left: 15px; font-size: 14px">
+                                                <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="Seleccione" />
+                                                <f:selectItems value="#{cie10Controller.lstcie10}" var="cie" itemLabel="#{cie.codCie10} - #{cie.desCie10}" itemValue="#{cie}" />
+                                            </p:selectOneMenu>
+                                            <!-- Diagnostico 1  -->
+                                            <p:outputLabel value="Diagnóstico 1" style="font-size: 14px; font-weight: bolder; color: #036fab" />
+                                            <p:selectOneMenu class="selOne"  value="#{historiaController.historia.idCie10}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains" style="width: 450px; margin-left: 15px; font-size: 14px">
+                                                <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="Seleccione" />
+                                                <f:selectItems value="#{cie10Controller.lstcie10}" var="cie" itemLabel="#{cie.codCie10} - #{cie.desCie10}" itemValue="#{cie}" />
+                                            </p:selectOneMenu>
+                                            <!-- Diagnostico 2  -->
+                                            <p:outputLabel value="Diagnóstico 2" style="font-size: 14px; font-weight: bolder; color: #036fab" />
+                                            <p:selectOneMenu class="selOne"  value="#{historiaController.historia.idCie10}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains" style="width: 450px; margin-left: 15px; font-size: 14px">
+                                                <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="Seleccione" />
+                                                <f:selectItems value="#{cie10Controller.lstcie10}" var="cie" itemLabel="#{cie.codCie10} - #{cie.desCie10}" itemValue="#{cie}" />
+                                            </p:selectOneMenu>
+                                            </h:panelGrid>     
+                                        </p:tab>
+                                    </p:accordionPanel>
+                                </h:form>
+                            </p:layoutUnit>
+                        </p:layout>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

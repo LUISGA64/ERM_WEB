@@ -8,29 +8,29 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-       <!-- <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>-->
-        <title>Personal Asistencial</title>
+        <!-- <h:outputStylesheet name="./css/index.css"/>
+         <h:outputStylesheet name="./css/cssLayout.css"/>-->
+        <title>Configuración</title>
         <f:event type="preRenderView" listener="#{plantillaController.verificarSesion()}" />
     </h:head>
 
     <h:body>
-
         <div id="top">
-            <p:menubar>
-                <p:submenu label="Asistencial" icon="fa fa-fw fa-ambulance">
-                    <p:menuitem value="Consulta Externa" outcome="/asistencial/consultaExterna" />
-                    <p:menuitem value="Agenda" outcome="/protegido/agenda" />
-                </p:submenu>
-            </p:menubar>
+            <ui:insert name="top">
+                <h:form>
+                    <p:menubar >
+                        <p:submenu label="Formatos" icon="fa fa-fw fa-file-o">
+                            <p:menuitem value="Consulta Externa" outcome="/asistencial/consultaExterna"/>
+                        </p:submenu>
+                    </p:menubar>
+                </h:form><br/>
+            </ui:insert>
         </div>
-
         <div id="content" class="center_content">
             <ui:insert name="content">Content</ui:insert>
         </div>
-
         <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+            <ui:insert name="bottom">Luis Gabriel Quira Mazabuel</ui:insert>
         </div>
 
     </h:body>

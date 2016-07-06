@@ -23,6 +23,7 @@ public class MedicamentoController implements Serializable {
     private MedicamentosFacadeLocal medicamentosEJB;
     private List<Medicamentos> lstmedicamentos;
     private Medicamentos selmedicamentos;
+    private List<Medicamentos> listarmedicamentos;
 
     @Inject
     private Medicamentos medicamentos;
@@ -85,6 +86,15 @@ public class MedicamentoController implements Serializable {
         this.formafarmaceutica = formafarmaceutica;
     }
 
+    public List<Medicamentos> getListarmedicamentos() {
+        return listarmedicamentos;
+    }
+
+    public void setListarmedicamentos(List<Medicamentos> listarmedicamentos) {
+        this.listarmedicamentos = listarmedicamentos;
+    }
+    
+
     public void registrar() {
         try {
             medicamentosEJB.create(medicamentos);
@@ -127,5 +137,10 @@ public class MedicamentoController implements Serializable {
 
         }
         return medic;
+    }
+    
+    public List<Medicamentos> listarmedicamentos(){
+        listarmedicamentos = medicamentosEJB.findAll();
+        return listarmedicamentos;
     }
 }

@@ -5,10 +5,7 @@ import com.erm.model.Cie10;
 import java.util.List;
 import javax.ejb.Local;
 
-/**
- *
- * @author Sammy Guergachi <sguergachi at gmail.com>
- */
+
 @Local
 public interface Cie10FacadeLocal {
 

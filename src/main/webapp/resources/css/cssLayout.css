@@ -16,9 +16,10 @@
 
 #left {
     float: left;
-    background-color: #ece3a5;
+    background-color: #ffffff;
     padding: 5px;
     width: 150px;
+    box-shadow: 3px 5px 4px 2px #AFAFAF
 }
 
 #right {

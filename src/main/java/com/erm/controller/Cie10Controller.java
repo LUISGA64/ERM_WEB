@@ -25,6 +25,7 @@ public class Cie10Controller implements Serializable{
     private List<Cie10> lstcie10;
     private Cie10 selcie10;
     
+    
 
     @Inject
     private Cie10 cie10;
@@ -32,9 +33,12 @@ public class Cie10Controller implements Serializable{
     @PostConstruct
     public void init() {
         lstcie10 = cie10EJB.findAll();
+        
     }
 
     //Metodos
+
+    
     public List<Cie10> getLstcie10() {
         return lstcie10;
     }
@@ -58,6 +62,8 @@ public class Cie10Controller implements Serializable{
     public void setSelcie10(Cie10 selcie10) {
         this.selcie10 = selcie10;
     }
+
+    
 
     public void registrar(){
         try {
